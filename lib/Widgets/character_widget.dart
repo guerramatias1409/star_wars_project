@@ -26,7 +26,7 @@ class CharacterWidget extends StatelessWidget {
                       ? "Height: ${height / 100}m"
                       : "Height: ${height}cm"),
               Text(weight == null ? "Weight: unknown" : "Weight: $weight kg"),
-              Text("Sex: ${character.gender}")
+              Text("Gender: ${character.gender}")
             ],
           ),
         ),

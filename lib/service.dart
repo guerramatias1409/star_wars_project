@@ -22,3 +22,24 @@ Future<List<Character>> getAllCharacters() async {
   }
   return characters;
 }
+
+Future<void> sendPost(Character character) async{
+  print("send post init");
+  final response = await http.post(Uri.parse('https://jsonplaceholder.typicode.com/posts/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'userId': 1,
+        'dateTime': DateTime.now().toString(),
+        'character_name': character.name
+      }));
+
+  if(response.statusCode == 201){
+    print("POST SENT");
+    print("POST: ${response.body}");
+  }else{
+    print("FAILED TO POST, TRY AGAIN");
+  }
+}
+
