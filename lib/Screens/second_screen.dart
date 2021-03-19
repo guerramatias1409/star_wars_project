@@ -22,14 +22,17 @@ class _SecondScreenState extends State<SecondScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
-              Text("Nombre: ${widget.character.name}", style: TextStyle(fontSize: 25)),
+              Text("Name: ${widget.character.name}", style: TextStyle(fontSize: 25)),
               Text(widget.character.height == null
-                  ? "Altura: unknown"
+                  ? "Height: unknown"
                   : widget.character.height > 100
-                  ? "Altura: ${widget.character.height / 100}m"
-                  : "Altura: ${widget.character.height}cm"),
-              Text(widget.character.weight == null ? "Peso: unknown" : "Peso: ${widget.character.weight} kg"),
-              Text("Sexo: ${widget.character.gender}")
+                  ? "Height: ${widget.character.height / 100}m"
+                  : "Height: ${widget.character.height}cm"),
+              Text(widget.character.weight == null ? "Weight: unknown" : "Weight: ${widget.character.weight} kg"),
+              Text("Sex: ${widget.character.gender}"),
+              Text("Hair Color: ${widget.character.hairColor}"),
+              Text("Skin Color: ${widget.character.skinColor}"),
+              Text("Eye Color: ${widget.character.eyeColor}")
             ],
           ),
         ),

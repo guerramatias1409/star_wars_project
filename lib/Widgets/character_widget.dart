@@ -19,14 +19,14 @@ class CharacterWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
-              Text("Nombre: ${character.name}", style: TextStyle(fontSize: 25)),
+              Text("Name: ${character.name}", style: TextStyle(fontSize: 25)),
               Text(height == null
-                  ? "Altura: unknown"
+                  ? "Height: unknown"
                   : height > 100
-                      ? "Altura: ${height / 100}m"
-                      : "Altura: ${height}cm"),
-              Text(weight == null ? "Peso: unknown" : "Peso: $weight kg"),
-              Text("Sexo: ${character.gender}")
+                      ? "Height: ${height / 100}m"
+                      : "Height: ${height}cm"),
+              Text(weight == null ? "Weight: unknown" : "Weight: $weight kg"),
+              Text("Sex: ${character.gender}")
             ],
           ),
         ),
