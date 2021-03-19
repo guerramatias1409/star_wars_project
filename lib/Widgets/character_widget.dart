@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/Screens/second_screen.dart';
 
 class CharacterWidget extends StatelessWidget {
   final Character character;
@@ -10,7 +11,9 @@ class CharacterWidget extends StatelessWidget {
     num height = character.height;
     num weight = character.weight;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondScreen(character: character)));
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
