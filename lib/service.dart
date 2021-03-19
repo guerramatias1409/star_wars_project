@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:star_wars_project/Models/Planet.dart';
+import 'package:star_wars_project/Models/Vehicle.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'dart:convert';
 
@@ -24,9 +25,19 @@ Future<List<Character>> getAllCharacters() async {
   return characters;
 }
 
-Future<Planet> getPlanet(String planetRoute) async{
-  var response = await http.get(Uri.parse(planetRoute.replaceAll('http:', 'https:')));
+Future<Planet> getPlanet(String planetEndpoint) async{
+  var response = await http.get(Uri.parse(planetEndpoint.replaceAll('http:', 'https:')));
   return Planet.fromJson(json.decode(response.body));
+}
+
+Future<List<Vehicle>> getCharacterVehicles(dynamic vehiclesList) async{
+  List<Vehicle> vehicles = [];
+  var list = vehiclesList as List;
+  list.forEach((element) async{
+    var response = await http.get(Uri.parse(element.replaceAll("http", "https")));
+    vehicles.add(Vehicle.fromJson(json.decode(response.body)));
+  });
+  return vehicles;
 }
 
 

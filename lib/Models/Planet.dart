@@ -1,4 +1,3 @@
-
 class Planet{
   String name;
 
@@ -6,7 +5,7 @@ class Planet{
 
   factory Planet.fromJson(Map<String, dynamic> json){
     return Planet(
-        name: json['name'],
+        name: json['name']
     );
   }
 }

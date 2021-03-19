@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars_project/Models/Planet.dart';
+import 'package:star_wars_project/Models/Vehicle.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/service.dart';
 
@@ -14,16 +15,31 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   Planet planet;
+  List<Vehicle> vehicles = [];
 
   @override
   void initState() {
-   widget.character.planet.then((Planet planetData){
-     setState(() {
-       planet = planetData;
-     });
-    });
+    getPlanet();
+    getVehicles();
     super.initState();
   }
+
+  void getPlanet() {
+    widget.character.planet.then((Planet _planetData) {
+      setState(() {
+        planet = _planetData;
+      });
+    });
+  }
+
+  void getVehicles() {
+    widget.character.vehicles.then((List<Vehicle> _vehicles) {
+      _vehicles.forEach((Vehicle _vehicle) {
+          vehicles.add(_vehicle);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +50,8 @@ class _SecondScreenState extends State<SecondScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("Name: ${widget.character.name}",
                   style: TextStyle(fontSize: 25)),
@@ -50,6 +68,12 @@ class _SecondScreenState extends State<SecondScreen> {
               Text("Skin Color: ${widget.character.skinColor}"),
               Text("Eye Color: ${widget.character.eyeColor}"),
               planet == null ? Container() : Text("Planet: ${planet.name}"),
+              vehicles == null || vehicles.length < 1  ? Container() :
+                Flexible(
+                  child: ListView(
+                    children: _vehiclesWidget(),
+                  ),
+                ),
               Expanded(
                 child: SizedBox(),
               ),
@@ -64,4 +88,16 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
     );
   }
+
+  List<Widget> _vehiclesWidget() {
+    List<Widget> list = [
+      Text("Vehicles:")
+    ];
+    vehicles.forEach((vehicle) {
+      list.add(Text(vehicle.name));
+    });
+    return list;
+  }
 }
+
+
