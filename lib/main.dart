@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/service.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +35,29 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Star Wars Project"),
       ),
-      body: Container(),
+      body: FutureBuilder(
+        future: getAllCharacters(),
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            return ListView(
+              children: _characterList(snapshot.data),
+            );
+          }else{
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
+}
+
+List<Widget> _characterList(List<Character> listInfo){
+  List<Widget> list = [];
+  listInfo.forEach((character) {
+    list.add(Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(character.toString()),
+    ));
+  });
+  return list;
 }
