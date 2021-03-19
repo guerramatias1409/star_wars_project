@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:star_wars_project/Models/Planet.dart';
-import 'package:star_wars_project/Models/Vehicle.dart';
+import 'package:star_wars_project/Models/planet.dart';
+import 'package:star_wars_project/Models/starship.dart';
+import 'package:star_wars_project/Models/vehicle.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/service.dart';
 
@@ -16,11 +17,13 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   Planet planet;
   List<Vehicle> vehicles = [];
+  List<Starship> starships = [];
 
   @override
   void initState() {
     getPlanet();
     getVehicles();
+    getStarships();
     super.initState();
   }
 
@@ -36,6 +39,14 @@ class _SecondScreenState extends State<SecondScreen> {
     widget.character.vehicles.then((List<Vehicle> _vehicles) {
       _vehicles.forEach((Vehicle _vehicle) {
           vehicles.add(_vehicle);
+      });
+    });
+  }
+
+  void getStarships() {
+    widget.character.starships.then((List<Starship> _starships) {
+      _starships.forEach((Starship _starship) {
+        starships.add(_starship);
       });
     });
   }
@@ -74,6 +85,12 @@ class _SecondScreenState extends State<SecondScreen> {
                     children: _vehiclesWidget(),
                   ),
                 ),
+              starships == null || starships.length < 1  ? Container() :
+              Flexible(
+                child: ListView(
+                  children: _starshipsWidget(),
+                ),
+              ),
               Expanded(
                 child: SizedBox(),
               ),
@@ -95,6 +112,16 @@ class _SecondScreenState extends State<SecondScreen> {
     ];
     vehicles.forEach((vehicle) {
       list.add(Text(vehicle.name));
+    });
+    return list;
+  }
+
+  List<Widget> _starshipsWidget() {
+    List<Widget> list = [
+      Text("Starships:")
+    ];
+    starships.forEach((starship) {
+      list.add(Text(starship.name));
     });
     return list;
   }

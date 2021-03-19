@@ -1,5 +1,6 @@
-import 'package:star_wars_project/Models/Planet.dart';
-import 'package:star_wars_project/Models/Vehicle.dart';
+import 'package:star_wars_project/Models/planet.dart';
+import 'package:star_wars_project/Models/starship.dart';
+import 'package:star_wars_project/Models/vehicle.dart';
 import 'package:star_wars_project/service.dart';
 
 class Character{
@@ -12,8 +13,9 @@ class Character{
   String eyeColor;
   Future<Planet> planet;
   Future<List<Vehicle>> vehicles;
+  Future<List<Starship>> starships;
 
-  Character({this.name, this.height, this.weight, this.gender, this.hairColor, this.skinColor, this.eyeColor, this.planet, this.vehicles});
+  Character({this.name, this.height, this.weight, this.gender, this.hairColor, this.skinColor, this.eyeColor, this.planet, this.vehicles, this.starships});
 
   @override
   String toString(){
@@ -30,5 +32,6 @@ class Character{
     this.eyeColor = json['eye_color'];
     this.planet = getPlanet(json['homeworld']);
     this.vehicles = getCharacterVehicles(json['vehicles']);
+    this.starships = getCharacterStarships(json['starships']);
   }
 }
