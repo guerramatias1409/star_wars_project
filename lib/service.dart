@@ -20,6 +20,5 @@ Future<List<Character>> getAllCharacters() async {
       characters.add(Character.fromJson(element));
     });
   }
-  print("LENGHT: ${characters.length}");
   return characters;
 }

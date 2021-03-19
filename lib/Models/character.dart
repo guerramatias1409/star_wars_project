@@ -1,7 +1,7 @@
 class Character{
   String name;
-  String height;
-  String weight;
+  num height;
+  num weight;
   String gender;
 
   Character({this.name, this.height, this.weight, this.gender});
@@ -14,8 +14,8 @@ class Character{
   factory Character.fromJson(Map<String, dynamic> json){
     return Character(
       name: json['name'],
-      height: json['height'],
-      weight: json['mass'],
+      height: json['height'] == null || json['height'] == 'unknown'? null : num.tryParse(json['height']),
+      weight: json['mass'] == null || json['mass'] == 'unknown'? null : num.tryParse(json['mass']),
       gender: json['gender']
     );
   }

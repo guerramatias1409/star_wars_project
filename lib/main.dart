@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/Widgets/character_widget.dart';
 import 'package:star_wars_project/service.dart';
 
 void main() {
@@ -56,7 +57,7 @@ List<Widget> _characterList(List<Character> listInfo){
   listInfo.forEach((character) {
     list.add(Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(character.toString()),
+      child: CharacterWidget(character: character),
     ));
   });
   return list;
