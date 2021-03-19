@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:star_wars_project/Models/Planet.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'dart:convert';
 
@@ -22,6 +23,12 @@ Future<List<Character>> getAllCharacters() async {
   }
   return characters;
 }
+
+Future<Planet> getPlanet(String planetRoute) async{
+  var response = await http.get(Uri.parse(planetRoute.replaceAll('http:', 'https:')));
+  return Planet.fromJson(json.decode(response.body));
+}
+
 
 Future<void> sendPost(Character character) async{
   print("send post init");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:star_wars_project/Models/Planet.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/service.dart';
 
@@ -12,6 +13,17 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+  Planet planet;
+
+  @override
+  void initState() {
+   widget.character.planet.then((Planet planetData){
+     setState(() {
+       planet = planetData;
+     });
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +49,7 @@ class _SecondScreenState extends State<SecondScreen> {
               Text("Hair Color: ${widget.character.hairColor}"),
               Text("Skin Color: ${widget.character.skinColor}"),
               Text("Eye Color: ${widget.character.eyeColor}"),
+              planet == null ? Container() : Text("Planet: ${planet.name}"),
               Expanded(
                 child: SizedBox(),
               ),

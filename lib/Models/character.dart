@@ -1,3 +1,6 @@
+import 'package:star_wars_project/Models/Planet.dart';
+import 'package:star_wars_project/service.dart';
+
 class Character{
   String name;
   num height;
@@ -6,35 +9,23 @@ class Character{
   String hairColor;
   String skinColor;
   String eyeColor;
+  Future<Planet> planet;
 
-  Character({this.name, this.height, this.weight, this.gender, this.hairColor, this.skinColor, this.eyeColor});
+  Character({this.name, this.height, this.weight, this.gender, this.hairColor, this.skinColor, this.eyeColor, this.planet});
 
   @override
   String toString(){
     return 'Name: $name\nHeight: $height\nWeight: $weight\nGender: $gender';
   }
 
-  factory Character.fromJson(Map<String, dynamic> json){
-    return Character(
-      name: json['name'],
-      height: json['height'] == null || json['height'] == 'unknown'? null : num.tryParse(json['height']),
-      weight: json['mass'] == null || json['mass'] == 'unknown'? null : num.tryParse(json['mass']),
-      gender: json['gender'],
-      hairColor: json['hair_color'],
-      skinColor: json['skin_color'],
-      eyeColor: json['eye_color']
-    );
-  }
-
-  Map<String, dynamic> toJson(){
-    return {
-      "name": name,
-      "height": height,
-      "weight": weight,
-      "gender": gender,
-      "hair_color": hairColor,
-      "skin_color": skinColor,
-      "eye_color": eyeColor
-    };
+  Character.fromJson(Map<dynamic, dynamic> json){
+    this.name = json['name'];
+    this.height = json['height'] == null || json['height'] == 'unknown'? null : num.tryParse(json['height']);
+    this.weight = json['mass'] == null || json['mass'] == 'unknown'? null : num.tryParse(json['mass']);
+    this.gender = json['gender'];
+    this.hairColor = json['hair_color'];
+    this.skinColor = json['skin_color'];
+    this.eyeColor = json['eye_color'];
+    this.planet = getPlanet(json['homeworld']);
   }
 }
