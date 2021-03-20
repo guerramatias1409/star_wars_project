@@ -38,6 +38,12 @@ class _FirstScreenState extends State<FirstScreen> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          rebuildList();
+        },
+        child: Icon(Icons.refresh),
+      ),
     );
   }
 
@@ -50,5 +56,11 @@ class _FirstScreenState extends State<FirstScreen> {
       ));
     });
     return list;
+  }
+
+  void rebuildList() {
+    setState(() {
+      _future = getAllCharacters();
+    });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:star_wars_project/Models/MyCharacter.dart';
+import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Screens/second_screen.dart';
 
