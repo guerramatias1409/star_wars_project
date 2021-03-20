@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:star_wars_project/Models/mode_controller.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
 
 void main() {
-  runApp(
-      ChangeNotifierProvider(
-          create: (context) => MyCharacterController(),
-          child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => MyCharacterController()),
+    ChangeNotifierProvider(create: (context) => ModeController()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
