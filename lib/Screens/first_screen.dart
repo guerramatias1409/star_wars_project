@@ -11,6 +11,13 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  Future<List<Character>> _future;
+
+  @override
+  void initState() {
+    _future = getAllCharacters();
+    super.initState();
+  }
 
 
   @override
@@ -20,7 +27,7 @@ class _FirstScreenState extends State<FirstScreen> {
         title: Text("Star Wars Project"),
       ),
       body: FutureBuilder(
-        future: getAllCharacters(),
+        future: _future,
         builder: (context, snapshot){
           if(snapshot.connectionState == ConnectionState.done){
             return ListView(

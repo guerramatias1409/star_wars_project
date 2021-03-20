@@ -5,12 +5,9 @@ import 'package:star_wars_project/Models/vehicle.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:async/async.dart';
 
-final AsyncMemoizer _memoizer = AsyncMemoizer();
 
 Future<List<Character>> getAllCharacters() async {
-  return await _memoizer.runOnce(() async {
     print("getAllCharacters");
     List<Character> characters = [];
     String jsonPage = await rootBundle.loadString('Assets/people1.json');
@@ -43,7 +40,6 @@ Future<List<Character>> getAllCharacters() async {
     }
     print("CHARACTERS LENGHT: ${characters.length}");
     return characters;*/
-  });
 }
 
 String getPlanet(String planetEndpoint) {
