@@ -13,10 +13,13 @@ dependencies:
     sdk: flutter
   cupertino_icons:
   http:
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+  assets:
+    - Assets/people1.json
   uses-material-design: true

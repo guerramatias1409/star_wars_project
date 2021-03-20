@@ -15,9 +15,12 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  Planet planet;
+  /* Planet planet;
   List<Vehicle> vehicles = [];
-  List<Starship> starships = [];
+  List<Starship> starships = [];*/
+  String planet;
+  List<String> vehicles = [];
+  List<String> starships = [];
 
   @override
   void initState() {
@@ -28,27 +31,37 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   void getPlanet() {
-    widget.character.planet.then((Planet _planetData) {
+    setState(() {
+      planet = widget.character.planet;
+    });
+    /*widget.character.planet.then((Planet _planetData) {
       setState(() {
         planet = _planetData;
       });
-    });
+    });*/
   }
 
   void getVehicles() {
-    widget.character.vehicles.then((List<Vehicle> _vehicles) {
+    widget.character.vehicles.forEach((element) {
+      vehicles.add(element);
+    });
+    /*widget.character.vehicles.then((List<Vehicle> _vehicles) {
       _vehicles.forEach((Vehicle _vehicle) {
           vehicles.add(_vehicle);
       });
-    });
+    });*/
   }
 
   void getStarships() {
-    widget.character.starships.then((List<Starship> _starships) {
+    widget.character.starships.forEach((element) {
+      starships.add(element);
+    });
+
+    /*widget.character.starships.then((List<Starship> _starships) {
       _starships.forEach((Starship _starship) {
         starships.add(_starship);
       });
-    });
+    });*/
   }
 
   @override
@@ -78,19 +91,21 @@ class _SecondScreenState extends State<SecondScreen> {
               Text("Hair Color: ${widget.character.hairColor}"),
               Text("Skin Color: ${widget.character.skinColor}"),
               Text("Eye Color: ${widget.character.eyeColor}"),
-              planet == null ? Container() : Text("Planet: ${planet.name}"),
-              vehicles == null || vehicles.length < 1  ? Container() :
-                Flexible(
-                  child: ListView(
-                    children: _vehiclesWidget(),
-                  ),
-                ),
-              starships == null || starships.length < 1  ? Container() :
-              Flexible(
-                child: ListView(
-                  children: _starshipsWidget(),
-                ),
-              ),
+              planet == null ? Container() : Text("Planet: ${planet/*planet.name*/}"),
+              vehicles == null || vehicles.length < 1
+                  ? Container()
+                  : Flexible(
+                      child: ListView(
+                        children: _vehiclesWidget(),
+                      ),
+                    ),
+              starships == null || starships.length < 1
+                  ? Container()
+                  : Flexible(
+                      child: ListView(
+                        children: _starshipsWidget(),
+                      ),
+                    ),
               Expanded(
                 child: SizedBox(),
               ),
@@ -107,24 +122,18 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   List<Widget> _vehiclesWidget() {
-    List<Widget> list = [
-      Text("Vehicles:")
-    ];
+    List<Widget> list = [Text("Vehicles:")];
     vehicles.forEach((vehicle) {
-      list.add(Text(vehicle.name));
+      list.add(Text(vehicle/*vehicle.name*/));
     });
     return list;
   }
 
   List<Widget> _starshipsWidget() {
-    List<Widget> list = [
-      Text("Starships:")
-    ];
+    List<Widget> list = [Text("Starships:")];
     starships.forEach((starship) {
-      list.add(Text(starship.name));
+      list.add(Text(starship/*starship.name*/));
     });
     return list;
   }
 }
-
-
