@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:star_wars_project/Models/MyCharacter.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Screens/second_screen.dart';
 
@@ -12,7 +14,7 @@ class CharacterWidget extends StatelessWidget {
     num weight = character.weight;
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondScreen(character: character)));
+        selectAndGoToSecondScreen(context);
       },
       child: Card(
         child: Padding(
@@ -32,5 +34,10 @@ class CharacterWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void selectAndGoToSecondScreen(BuildContext _context) {
+    Provider.of<MyCharacterController>(_context, listen: false).selectCharacter(character);
+    Navigator.push(_context, MaterialPageRoute(builder: (context) => SecondScreen()));
   }
 }

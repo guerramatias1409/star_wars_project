@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:star_wars_project/Models/MyCharacter.dart';
 import 'package:star_wars_project/Models/planet.dart';
 import 'package:star_wars_project/Models/starship.dart';
 import 'package:star_wars_project/Models/vehicle.dart';
@@ -6,9 +8,8 @@ import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/service.dart';
 
 class SecondScreen extends StatefulWidget {
-  final Character character;
 
-  SecondScreen({this.character});
+  SecondScreen();
 
   @override
   _SecondScreenState createState() => _SecondScreenState();
@@ -21,18 +22,24 @@ class _SecondScreenState extends State<SecondScreen> {
   String planet;
   List<String> vehicles = [];
   List<String> starships = [];
+  Character character;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    getCharacter();
+    super.didChangeDependencies();
+  }
+
+  void getCharacter() async{
+    character = Provider.of<MyCharacterController>(context).selectedCharacter;
     getPlanet();
     getVehicles();
     getStarships();
-    super.initState();
   }
 
   void getPlanet() {
     setState(() {
-      planet = widget.character.planet;
+      planet = character.planet;
     });
     /*widget.character.planet.then((Planet _planetData) {
       setState(() {
@@ -42,7 +49,7 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   void getVehicles() {
-    widget.character.vehicles.forEach((element) {
+    character.vehicles.forEach((element) {
       vehicles.add(element);
     });
     /*widget.character.vehicles.then((List<Vehicle> _vehicles) {
@@ -53,7 +60,7 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   void getStarships() {
-    widget.character.starships.forEach((element) {
+    character.starships.forEach((element) {
       starships.add(element);
     });
 
@@ -66,7 +73,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return character == null ? Container() : Scaffold(
       appBar: AppBar(
         title: Text("Star Wars Project"),
       ),
@@ -77,20 +84,20 @@ class _SecondScreenState extends State<SecondScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Name: ${widget.character.name}",
+              Text("Name: ${character.name}",
                   style: TextStyle(fontSize: 25)),
-              Text(widget.character.height == null
+              Text(character.height == null
                   ? "Height: unknown"
-                  : widget.character.height > 100
-                      ? "Height: ${widget.character.height / 100}m"
-                      : "Height: ${widget.character.height}cm"),
-              Text(widget.character.weight == null
+                  : character.height > 100
+                      ? "Height: ${character.height / 100}m"
+                      : "Height: ${character.height}cm"),
+              Text(character.weight == null
                   ? "Weight: unknown"
-                  : "Weight: ${widget.character.weight} kg"),
-              Text("Gender: ${widget.character.gender}"),
-              Text("Hair Color: ${widget.character.hairColor}"),
-              Text("Skin Color: ${widget.character.skinColor}"),
-              Text("Eye Color: ${widget.character.eyeColor}"),
+                  : "Weight: ${character.weight} kg"),
+              Text("Gender: ${character.gender}"),
+              Text("Hair Color: ${character.hairColor}"),
+              Text("Skin Color: ${character.skinColor}"),
+              Text("Eye Color: ${character.eyeColor}"),
               planet == null ? Container() : Text("Planet: ${planet/*planet.name*/}"),
               vehicles == null || vehicles.length < 1
                   ? Container()
@@ -111,7 +118,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
               FloatingActionButton.extended(
                   onPressed: () {
-                    sendPost(widget.character);
+                    sendPost(character);
                   },
                   label: Text("Reportar"))
             ],

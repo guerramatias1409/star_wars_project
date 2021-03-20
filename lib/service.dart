@@ -75,7 +75,6 @@ import 'package:flutter/services.dart' show rootBundle;
   List<String> starships = [];
   var list = starshipsList as List;
   list.forEach((element) async{
-    print("STARSHIP $element");
     starships.add(element);
   });
   return starships;

@@ -12,6 +12,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +33,15 @@ class _FirstScreenState extends State<FirstScreen> {
       ),
     );
   }
-}
 
-List<Widget> _characterList(List<Character> listInfo){
-  List<Widget> list = [];
-  listInfo.forEach((character) {
-    list.add(Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CharacterWidget(character: character),
-    ));
-  });
-  return list;
+  List<Widget> _characterList(List<Character> listInfo){
+    List<Widget> list = [];
+    listInfo.forEach((character) {
+      list.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CharacterWidget(character: character),
+      ));
+    });
+    return list;
+  }
 }
