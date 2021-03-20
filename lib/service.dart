@@ -5,9 +5,12 @@ import 'package:star_wars_project/Models/vehicle.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:async/async.dart';
 
+final AsyncMemoizer _memoizer = AsyncMemoizer();
 
-  Future<List<Character>> getAllCharacters() async {
+Future<List<Character>> getAllCharacters() async {
+  return await _memoizer.runOnce(() async {
     print("getAllCharacters");
     List<Character> characters = [];
     String jsonPage = await rootBundle.loadString('Assets/people1.json');
@@ -18,7 +21,6 @@ import 'package:flutter/services.dart' show rootBundle;
     });
     print("CHARACTERS LENGHT: ${characters.length}");
     return characters;
-
 
     /*String charactersUrl = 'https://swapi.dev/api/people/';
     List<Character> characters = [];
@@ -41,27 +43,28 @@ import 'package:flutter/services.dart' show rootBundle;
     }
     print("CHARACTERS LENGHT: ${characters.length}");
     return characters;*/
-  }
+  });
+}
 
-  String getPlanet(String planetEndpoint) {
+String getPlanet(String planetEndpoint) {
   return planetEndpoint;
-  }
+}
 
-  /*Future<Planet> getPlanet(String planetEndpoint) async{
+/*Future<Planet> getPlanet(String planetEndpoint) async{
     var response = await http.get(Uri.parse(planetEndpoint.replaceAll('http:', 'https:')));
     return Planet.fromJson(json.decode(response.body));
   }*/
 
-  List<String> getCharacterVehicles(dynamic vehiclesList) {
+List<String> getCharacterVehicles(dynamic vehiclesList) {
   List<String> vehicles = [];
   var list = vehiclesList as List;
-  list.forEach((element) async{
+  list.forEach((element) async {
     vehicles.add(element.toString());
   });
   return vehicles;
-  }
+}
 
-  /*Future<List<Vehicle>> getCharacterVehicles(dynamic vehiclesList) async{
+/*Future<List<Vehicle>> getCharacterVehicles(dynamic vehiclesList) async{
     List<Vehicle> vehicles = [];
     var list = vehiclesList as List;
     list.forEach((element) async{
@@ -71,16 +74,16 @@ import 'package:flutter/services.dart' show rootBundle;
     return vehicles;
   }*/
 
-  List<String> getCharacterStarships(dynamic starshipsList) {
+List<String> getCharacterStarships(dynamic starshipsList) {
   List<String> starships = [];
   var list = starshipsList as List;
-  list.forEach((element) async{
+  list.forEach((element) async {
     starships.add(element);
   });
   return starships;
-  }
+}
 
-  /*Future<List<Starship>> getCharacterStarships(dynamic starshipsList) async{
+/*Future<List<Starship>> getCharacterStarships(dynamic starshipsList) async{
     List<Starship> starships = [];
     var list = starshipsList as List;
     list.forEach((element) async{
@@ -90,26 +93,23 @@ import 'package:flutter/services.dart' show rootBundle;
     return starships;
   }*/
 
+Future<void> sendPost(Character character) async {
+  print("send post init");
+  final response =
+      await http.post(Uri.parse('https://jsonplaceholder.typicode.com/posts/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            'userId': 1,
+            'dateTime': DateTime.now().toString(),
+            'character_name': character.name
+          }));
 
-  Future<void> sendPost(Character character) async{
-    print("send post init");
-    final response = await http.post(Uri.parse('https://jsonplaceholder.typicode.com/posts/'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, dynamic>{
-          'userId': 1,
-          'dateTime': DateTime.now().toString(),
-          'character_name': character.name
-        }));
-
-    if(response.statusCode == 201){
-      print("POST SENT");
-      print("POST: ${response.body}");
-    }else{
-      print("FAILED TO POST, TRY AGAIN");
-    }
+  if (response.statusCode == 201) {
+    print("POST SENT");
+    print("POST: ${response.body}");
+  } else {
+    print("FAILED TO POST, TRY AGAIN");
   }
-
-
-
+}
