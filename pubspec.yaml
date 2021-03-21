@@ -16,6 +16,8 @@ dependencies:
   provider: ^5.0.0
   async: ^2.5.0
   connectivity: ^3.0.3
+  bordered_text: ^1.0.1
+  google_fonts: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -23,13 +25,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - Assets/people1.json
-    - Assets/people2.json
-    - Assets/people3.json
-    - Assets/people4.json
-    - Assets/people5.json
-    - Assets/people6.json
-    - Assets/people7.json
-    - Assets/people8.json
-    - Assets/people9.json
+    - assets/
   uses-material-design: true

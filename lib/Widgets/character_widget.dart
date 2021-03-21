@@ -17,11 +17,14 @@ class CharacterWidget extends StatelessWidget {
         selectAndGoToSecondScreen(context);
       },
       child: Card(
+        color: Colors.white.withOpacity(0.3),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Name: ${character.name}", style: TextStyle(fontSize: 25)),
+              Text(character.name, style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
               Text(height == null
                   ? "Height: unknown"
                   : height > 100
