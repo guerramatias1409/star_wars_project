@@ -55,12 +55,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   strokeColor: Color(0xFFFFE444),
                   child: Text(
                     "INVASION",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28,
-                      decoration: TextDecoration.none,
-                      letterSpacing: 18,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
                 SizedBox(height: 10),
