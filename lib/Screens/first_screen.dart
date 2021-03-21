@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
@@ -17,38 +18,48 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   void initState() {
-    _future = getAllCharacters();
+    print("first screen init state");
+    checkInitialConnection();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder:
-        (BuildContext context, ModeController modeController, Widget child) {
+    return Consumer(builder: (BuildContext context,
+        ModeController connectivityController, Widget child) {
       return Scaffold(
         appBar: AppBar(
           title: Text("Star Wars Project"),
           actions: [
-            Switch(
-                value: modeController.isOnline,
-                onChanged: (value) {
-                  modeController.changeMode(value);
-                }),
+            Consumer(builder: (BuildContext context,
+                ModeController connectivityController, Widget child) {
+              return Switch(
+                  value: connectivityController.isOnline,
+                  onChanged: (value) async{
+                    await connectivityController.changeMode(
+                        connectivityBoolean: value);
+                    if(connectivityController.isOnline == true){
+                      refreshList();
+                    }
+                  });
+            })
           ],
         ),
-        body: FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return ListView(
-                children: _characterList(snapshot.data),
-              );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-        floatingActionButton: modeController.isOnline
+        body: connectivityController.isOnline == false && _future == null
+            ? Center(child: Text("You need connection to get data"))
+            : FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ListView(
+                      children: _characterList(snapshot.data),
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+        floatingActionButton: connectivityController.isOnline
             ? FloatingActionButton(
                 onPressed: () {
                   rebuildList();
@@ -71,7 +82,32 @@ class _FirstScreenState extends State<FirstScreen> {
     return list;
   }
 
-  void rebuildList() {
+  void rebuildList() async{
+    print("Entro a rebuild");
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+     print("No connection, cant refresh");
+     Provider.of<ModeController>(context, listen: false)
+         .changeMode(connectivityBoolean: false);
+    } else {
+      refreshList();
+    }
+  }
+
+  void checkInitialConnection() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    print(connectivityResult);
+    if (connectivityResult == ConnectivityResult.none) {
+      Provider.of<ModeController>(context, listen: false)
+          .changeMode(connectivityBoolean: false);
+    } else {
+      Provider.of<ModeController>(context, listen: false)
+          .changeMode(connectivityBoolean: true);
+      refreshList();
+    }
+  }
+
+  void refreshList(){
     setState(() {
       _future = getAllCharacters();
     });

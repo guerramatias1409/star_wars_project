@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/mode_controller.dart';
@@ -16,12 +17,12 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  /* Planet planet;
+   Planet planet;
   List<Vehicle> vehicles = [];
-  List<Starship> starships = [];*/
-  String planet;
+  List<Starship> starships = [];
+  /*String planet;
   List<String> vehicles = [];
-  List<String> starships = [];
+  List<String> starships = [];*/
   Character character;
 
   @override
@@ -38,37 +39,37 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   void getPlanet() {
-    setState(() {
+    /*setState(() {
       planet = character.planet;
-    });
-    /*widget.character.planet.then((Planet _planetData) {
+    });*/
+    character.planet.then((Planet _planetData) {
       setState(() {
         planet = _planetData;
       });
-    });*/
+    });
   }
 
   void getVehicles() {
-    character.vehicles.forEach((element) {
+    /*character.vehicles.forEach((element) {
       vehicles.add(element);
-    });
-    /*widget.character.vehicles.then((List<Vehicle> _vehicles) {
+    });*/
+    character.vehicles.then((List<Vehicle> _vehicles) {
       _vehicles.forEach((Vehicle _vehicle) {
           vehicles.add(_vehicle);
       });
-    });*/
+    });
   }
 
   void getStarships() {
-    character.starships.forEach((element) {
+    /*character.starships.forEach((element) {
       starships.add(element);
-    });
+    });*/
 
-    /*widget.character.starships.then((List<Starship> _starships) {
+    character.starships.then((List<Starship> _starships) {
       _starships.forEach((Starship _starship) {
         starships.add(_starship);
       });
-    });*/
+    });
   }
 
   @override
@@ -103,7 +104,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     Text("Eye Color: ${character.eyeColor}"),
                     planet == null
                         ? Container()
-                        : Text("Planet: ${planet /*planet.name*/}"),
+                        : Text("Planet: ${ /*planet*/ planet.name}"),
                     vehicles == null || vehicles.length < 1
                         ? Container()
                         : Flexible(
@@ -127,7 +128,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         return modeController.isOnline
                             ? FloatingActionButton.extended(
                                 onPressed: () {
-                                  sendPost(character);
+                                  checkAndSendPost();
                                 },
                                 label: Text("Reportar"))
                             : Container();
@@ -143,7 +144,7 @@ class _SecondScreenState extends State<SecondScreen> {
   List<Widget> _vehiclesWidget() {
     List<Widget> list = [Text("Vehicles:")];
     vehicles.forEach((vehicle) {
-      list.add(Text(vehicle /*vehicle.name*/));
+      list.add(Text(/*vehicle*/ vehicle.name));
     });
     return list;
   }
@@ -151,8 +152,19 @@ class _SecondScreenState extends State<SecondScreen> {
   List<Widget> _starshipsWidget() {
     List<Widget> list = [Text("Starships:")];
     starships.forEach((starship) {
-      list.add(Text(starship /*starship.name*/));
+      list.add(Text(/*starship*/ starship.name));
     });
     return list;
+  }
+
+  void checkAndSendPost() async{
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      print("No connection, cant refresh");
+      Provider.of<ModeController>(context, listen: false)
+          .changeMode(connectivityBoolean: false);
+    } else {
+      sendPost(character);
+    }
   }
 }

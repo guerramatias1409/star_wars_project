@@ -4,6 +4,8 @@ import 'package:star_wars_project/Models/mode_controller.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => MyCharacterController()),
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      navigatorKey: navigatorKey,
       home: FirstScreen(),
     );
   }
