@@ -92,6 +92,7 @@ class _SecondScreenState extends State<SecondScreen>
 
   @override
   Widget build(BuildContext context) {
+    var appBar = AppBar();
     return Material(
       child: Stack(
         children: [
@@ -101,49 +102,72 @@ class _SecondScreenState extends State<SecondScreen>
           ),
           character == null
               ? Container()
-              : Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: Column(
-                    children: [
-                      Text(
-                        character.name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 45,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Flexible(
-                        child: SingleChildScrollView(
-                          child: AnimatedBuilder(
-                            animation: animation,
-                            builder: (BuildContext context, Widget child) {
-                              return Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                  child: Text(
-                                    characterText.substring(0, animation.value),
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 25,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
+              : Column(
+            children: [
+              SizedBox(height: 30),
+              Container(
+                width: double.infinity,
+                height: appBar.preferredSize.height-10,
+                child: IconButton(
+                  padding: const EdgeInsets.all(12.0),
+                  alignment: Alignment.centerLeft,
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  iconSize: 34,
+                  icon: Icon(Icons.arrow_back, color: Colors.black),
+                ),
+              ),
+              Text(
+                character.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: AnimatedBuilder(
+                    animation: animation,
+                    builder: (BuildContext context, Widget child) {
+                      return Container(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16),
+                          child: Text(
+                            characterText.substring(0, animation.value),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 85)
-                    ],
+                      );
+                    },
                   ),
                 ),
+              ),
+              SizedBox(height: 85)
+            ],
+          )
+          /*Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+              ),
+            ),
+            body: ,
+          ),*/,
           Align(
             alignment: Alignment.bottomCenter,
             child: Consumer(
@@ -164,7 +188,7 @@ class _SecondScreenState extends State<SecondScreen>
                           onPressed: () {
                             checkAndSendPost();
                           },
-                          label: Text("Reportar", style: TextStyle(
+                          label: Text("Report", style: TextStyle(
                               color: Color(0xFFFFE444),
                               fontSize: 20
                           ),)),
