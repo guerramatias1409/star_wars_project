@@ -59,16 +59,11 @@ class _FirstScreenState extends State<FirstScreen>
                           .drive(CurveTween(curve: Curves.easeOut)),
                       child: Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              animationController.repeat();
-                            },
-                            child: Container(
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover, image: logo)),
-                            ),
+                          Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover, image: logo)),
                           ),
                           BorderedText(
                             strokeWidth: 4,
