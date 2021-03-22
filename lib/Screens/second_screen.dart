@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,148 +18,136 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
-   Planet planet;
-  List<Vehicle> vehicles = [];
-  List<Starship> starships = [];
-  /*String planet;
-  List<String> vehicles = [];
-  List<String> starships = [];*/
+class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderStateMixin<SecondScreen>{
   Character character;
+/*  Planet planet;
+  List<Vehicle> vehicles = [];
+  List<Starship> starships = [];*/
+  String characterText = "";
+  bool isReady = false;
+  AnimationController controller;
+  Animation<int> animation;
+  int index = 0;
 
   @override
   void didChangeDependencies() {
-    getCharacter();
+    if(index==0){
+      controller = AnimationController(vsync: this, duration: Duration(seconds: 3));
+      getCharacter();
+      animation = IntTween(begin: 0, end: characterText.length).animate(controller);
+      index++;
+    }
     super.didChangeDependencies();
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+
   void getCharacter() async {
     character = Provider.of<MyCharacterController>(context).selectedCharacter;
-    getPlanet();
-    getVehicles();
-    getStarships();
+    /*planet = Provider.of<MyCharacterController>(context).planet;
+    vehicles = Provider.of<MyCharacterController>(context).vehicles;
+    starships = Provider.of<MyCharacterController>(context).starships;*/
+    setText();
   }
 
-  void getPlanet() {
-    /*setState(() {
-      planet = character.planet;
-    });*/
-    character.planet.then((Planet _planetData) {
-      setState(() {
-        planet = _planetData;
-      });
-    });
-  }
+  void setText() {
+    characterText = "";
+    character.height == null
+        ? characterText += "Height: unknown"
+        : character.height > 100
+            ? characterText += "Height: ${character.height / 100}m"
+            : characterText += "Height: ${character.height}cm";
+    character.weight == null
+        ? characterText += "\nWeight: unknown"
+        : characterText += "\nWeight: ${character.weight} kg";
+    characterText +=
+        "\nGender: ${character.gender}\nHair Color: ${character.hairColor}\nSkin Color: ${character.skinColor}\nEye Color: ${character.eyeColor}";
 
-  void getVehicles() {
-    /*character.vehicles.forEach((element) {
-      vehicles.add(element);
-    });*/
-    character.vehicles.then((List<Vehicle> _vehicles) {
-      _vehicles.forEach((Vehicle _vehicle) {
-          vehicles.add(_vehicle);
+    /*if (vehicles.length > 1) {
+      characterText += "\nVehicles: ";
+      vehicles.forEach((vehicle) {
+        characterText += "\n\t- ${vehicle.name}";
       });
-    });
-  }
-
-  void getStarships() {
-    /*character.starships.forEach((element) {
-      starships.add(element);
-    });*/
-
-    character.starships.then((List<Starship> _starships) {
-      _starships.forEach((Starship _starship) {
-        starships.add(_starship);
+    }
+    if (starships.length > 1) {
+      characterText += "\nStarships: ";
+      starships.forEach((starship) {
+        characterText += "\n\t- ${starship.name}";
       });
-    });
+    }*/
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return character == null
-        ? Container()
-        : Scaffold(
-            appBar: AppBar(
-              title: Text("Star Wars Project"),
-            ),
-            body: Center(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Name: ${character.name}",
-                        style: TextStyle(fontSize: 25)),
-                    Text(character.height == null
-                        ? "Height: unknown"
-                        : character.height > 100
-                            ? "Height: ${character.height / 100}m"
-                            : "Height: ${character.height}cm"),
-                    Text(character.weight == null
-                        ? "Weight: unknown"
-                        : "Weight: ${character.weight} kg"),
-                    Text("Gender: ${character.gender}"),
-                    Text("Hair Color: ${character.hairColor}"),
-                    Text("Skin Color: ${character.skinColor}"),
-                    Text("Eye Color: ${character.eyeColor}"),
-                    planet == null
-                        ? Container()
-                        : Text("Planet: ${ /*planet*/ planet.name}"),
-                    vehicles == null || vehicles.length < 1
-                        ? Container()
-                        : Flexible(
-                            child: ListView(
-                              children: _vehiclesWidget(),
-                            ),
-                          ),
-                    starships == null || starships.length < 1
-                        ? Container()
-                        : Flexible(
-                            child: ListView(
-                              children: _starshipsWidget(),
-                            ),
-                          ),
-                    Expanded(
-                      child: SizedBox(),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("Assets/fondo3.jpg"))),
+        ),
+        character == null
+            ? Container()
+            : Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 8),
+              child: AnimatedBuilder(
+                animation: animation,
+                builder: (BuildContext context, Widget child){
+                  return Material(child: Text(characterText.substring(0, animation.value)));
+                },
+              )
+            /*AnimatedDefaultTextStyle(
+                    duration: const Duration(milliseconds: 3000),
+                    style: isReady ?
+                    TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      decoration: TextDecoration.none,
+                      letterSpacing: 0,
+                    ) :
+                    TextStyle(
+                      color: Colors.transparent,
+                      fontSize: 25,
+                      decoration: TextDecoration.none,
+                      letterSpacing: 0,
                     ),
-                    Consumer(
-                      builder: (BuildContext _context,
-                          ModeController modeController, Widget child) {
-                        return modeController.isOnline
-                            ? FloatingActionButton.extended(
-                                onPressed: () {
-                                  checkAndSendPost();
-                                },
-                                label: Text("Reportar"))
-                            : Container();
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
+                    child: Text(
+                      characterText
+                    )*/
+          ),
+        ),
+        Consumer(
+          builder: (BuildContext _context,
+              ModeController modeController, Widget child) {
+            return modeController.isOnline
+                ? Positioned(
+              bottom: 10,
+              left: 10,
+              right: 10,
+              child: FloatingActionButton.extended(
+                  onPressed: () {
+                    checkAndSendPost();
+                  },
+                  label: Text("Reportar")),
+            )
+                : Container();
+          },
+        )
+      ],
+    );
   }
 
-  List<Widget> _vehiclesWidget() {
-    List<Widget> list = [Text("Vehicles:")];
-    vehicles.forEach((vehicle) {
-      list.add(Text(/*vehicle*/ vehicle.name));
-    });
-    return list;
-  }
-
-  List<Widget> _starshipsWidget() {
-    List<Widget> list = [Text("Starships:")];
-    starships.forEach((starship) {
-      list.add(Text(/*starship*/ starship.name));
-    });
-    return list;
-  }
-
-  void checkAndSendPost() async{
+  void checkAndSendPost() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       print("No connection, cant refresh");

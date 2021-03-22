@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/Screens/Third.dart';
 import 'package:star_wars_project/Screens/second_screen.dart';
+import 'package:star_wars_project/Screens/second_screen2.dart';
 
-class CharacterWidget extends StatelessWidget {
+class CharacterWidget extends StatefulWidget {
   final Character character;
 
   CharacterWidget({this.character});
+
+  @override
+  _CharacterWidgetState createState() => _CharacterWidgetState();
+}
+
+class _CharacterWidgetState extends State<CharacterWidget> {
   @override
   Widget build(BuildContext context) {
-    num height = character.height;
-    num weight = character.weight;
+    num height = widget.character.height;
+    num weight = widget.character.weight;
     return GestureDetector(
       onTap: () {
-        selectAndGoToSecondScreen(context);
+        selectAndGoToSecondScreen();
       },
       child: Card(
         color: Colors.white.withOpacity(0.3),
@@ -24,14 +32,14 @@ class CharacterWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(character.name, style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
+              Text(widget.character.name, style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
               Text(height == null
                   ? "Height: unknown"
                   : height > 100
                       ? "Height: ${height / 100}m"
                       : "Height: ${height}cm"),
               Text(weight == null ? "Weight: unknown" : "Weight: $weight kg"),
-              Text("Gender: ${character.gender}")
+              Text("Gender: ${widget.character.gender}")
             ],
           ),
         ),
@@ -39,8 +47,8 @@ class CharacterWidget extends StatelessWidget {
     );
   }
 
-  void selectAndGoToSecondScreen(BuildContext _context) async{
-    await Provider.of<MyCharacterController>(_context, listen: false).selectCharacter(character);
-    Navigator.push(_context, MaterialPageRoute(builder: (context) => SecondScreen()));
+  void selectAndGoToSecondScreen() {
+    Provider.of<MyCharacterController>(context, listen: false).selectCharacter(widget.character);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen()));
   }
 }
