@@ -16,6 +16,8 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   Future<List<Character>> _future;
+  ImageProvider background = AssetImage("Assets/fondo4.jpg");
+  ImageProvider logo = AssetImage("Assets/logo.png");
 
   @override
   void initState() {
@@ -36,8 +38,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 color: Colors.black,
                   image: DecorationImage(
                       fit: BoxFit.fitHeight,
-                      image: AssetImage(
-                          "Assets/fondo4.jpg"))),
+                      image: background)),
             ),
             Column(
               children: [
@@ -48,7 +49,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage("Assets/logo.png"))),
+                            image: logo)),
                   ),
                 ),
                 BorderedText(

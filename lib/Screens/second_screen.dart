@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +18,15 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderStateMixin<SecondScreen>{
   Character character;
-/*  Planet planet;
+  Planet planet;
   List<Vehicle> vehicles = [];
-  List<Starship> starships = [];*/
+  List<Starship> starships = [];
   String characterText = "";
   bool isReady = false;
   AnimationController controller;
   Animation<int> animation;
   int index = 0;
+  ImageProvider background = AssetImage("Assets/fondo3.jpg");
 
   @override
   void didChangeDependencies() {
@@ -49,9 +48,9 @@ class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderSt
 
   void getCharacter() async {
     character = Provider.of<MyCharacterController>(context).selectedCharacter;
-    /*planet = Provider.of<MyCharacterController>(context).planet;
+    planet = Provider.of<MyCharacterController>(context).planet;
     vehicles = Provider.of<MyCharacterController>(context).vehicles;
-    starships = Provider.of<MyCharacterController>(context).starships;*/
+    starships = Provider.of<MyCharacterController>(context).starships;
     setText();
   }
 
@@ -66,84 +65,90 @@ class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderSt
         ? characterText += "\nWeight: unknown"
         : characterText += "\nWeight: ${character.weight} kg";
     characterText +=
-        "\nGender: ${character.gender}\nHair Color: ${character.hairColor}\nSkin Color: ${character.skinColor}\nEye Color: ${character.eyeColor}";
+        "\nGender: ${character.gender}\nHair Color: ${character.hairColor}\nSkin Color: ${character.skinColor}\nEye Color: ${character.eyeColor}\nPlanet: ${planet.name}";
 
-    /*if (vehicles.length > 1) {
+    if (vehicles.length > 0) {
       characterText += "\nVehicles: ";
       vehicles.forEach((vehicle) {
         characterText += "\n\t- ${vehicle.name}";
       });
     }
-    if (starships.length > 1) {
+    if (starships.length > 0) {
       characterText += "\nStarships: ";
       starships.forEach((starship) {
         characterText += "\n\t- ${starship.name}";
       });
-    }*/
-
+    }
+    controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("Assets/fondo3.jpg"))),
-        ),
-        character == null
-            ? Container()
-            : Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 8),
-              child: AnimatedBuilder(
-                animation: animation,
-                builder: (BuildContext context, Widget child){
-                  return Material(child: Text(characterText.substring(0, animation.value)));
-                },
-              )
-            /*AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 3000),
-                    style: isReady ?
-                    TextStyle(
+    return Material(
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: background)),
+          ),
+          character == null
+              ? Container()
+              : Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 8),
+                child: AnimatedBuilder(
+                  animation: animation,
+                  builder: (BuildContext context, Widget child){
+                    return Text(characterText.substring(0, animation.value), style: TextStyle(
                       color: Colors.black,
                       fontSize: 25,
                       decoration: TextDecoration.none,
-                      letterSpacing: 0,
-                    ) :
-                    TextStyle(
-                      color: Colors.transparent,
-                      fontSize: 25,
-                      decoration: TextDecoration.none,
-                      letterSpacing: 0,
-                    ),
-                    child: Text(
-                      characterText
-                    )*/
-          ),
-        ),
-        Consumer(
-          builder: (BuildContext _context,
-              ModeController modeController, Widget child) {
-            return modeController.isOnline
-                ? Positioned(
-              bottom: 10,
-              left: 10,
-              right: 10,
-              child: FloatingActionButton.extended(
-                  onPressed: () {
-                    checkAndSendPost();
+                    ),);
                   },
-                  label: Text("Reportar")),
-            )
-                : Container();
-          },
-        )
-      ],
+                )
+              /*AnimatedDefaultTextStyle(
+                      duration: const Duration(milliseconds: 3000),
+                      style: isReady ?
+                      TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        decoration: TextDecoration.none,
+                        letterSpacing: 0,
+                      ) :
+                      TextStyle(
+                        color: Colors.transparent,
+                        fontSize: 25,
+                        decoration: TextDecoration.none,
+                        letterSpacing: 0,
+                      ),
+                      child: Text(
+                        characterText
+                      )*/
+            ),
+          ),
+          Consumer(
+            builder: (BuildContext _context,
+                ModeController modeController, Widget child) {
+              return modeController.isOnline
+                  ? Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: FloatingActionButton.extended(
+                    onPressed: () {
+                      checkAndSendPost();
+                    },
+                    label: Text("Reportar")),
+              )
+                  : Container();
+            },
+          )
+        ],
+      ),
     );
   }
 

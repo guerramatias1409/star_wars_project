@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    precacheImage(AssetImage("Assets/fondo4.jpg"), context);
+    precacheImage(AssetImage("Assets/fondo3.jpg"), context);
+    precacheImage(AssetImage("Assets/logo.png"), context);
     return MaterialApp(
       title: 'Star Wars App',
       theme: ThemeData(

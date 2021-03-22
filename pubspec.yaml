@@ -26,4 +26,9 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/fondo1.jpg
+    - assets/fondo2.jpg
+    - assets/fondo3.jpg
+    - assets/fondo4.jpg
+    - assets/logo.png
   uses-material-design: true
