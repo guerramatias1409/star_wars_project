@@ -115,72 +115,79 @@ class _SecondScreenState extends State<SecondScreen>
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: AnimatedBuilder(
-                          animation: animation,
-                          builder: (BuildContext context, Widget child) {
-                            return Container(
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                child: Text(
-                                  characterText.substring(0, animation.value),
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25,
-                                    decoration: TextDecoration.none,
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: AnimatedBuilder(
+                            animation: animation,
+                            builder: (BuildContext context, Widget child) {
+                              return Container(
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  child: Text(
+                                    characterText.substring(0, animation.value),
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      decoration: TextDecoration.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Consumer(
-                        builder: (BuildContext _context, ModeController modeController,
-                            Widget child) {
-                          return modeController.isOnline
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: AnimatedCrossFade(
-                                  crossFadeState: !postSent ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                  duration: Duration(seconds: 1),
-                                  firstChild: Container(
-                                    height: 60,
-                                    width: 300,
-                                    child: FloatingActionButton.extended(
-                                        onPressed: () {
-                                          checkAndSendPost();
-                                        },
-                                        label: Text("Reportar")),
-                                  ),
-                                  secondChild: Container(
-                                    height: 60,
-                                    width: 300,
-                                    child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            border: Border.all(color: Color(0xFFFFE444), width: 4),
-                                            shape: BoxShape.circle
-                                        ),
-                                        child: Icon(Icons.check, color: Color(0xFFFFE444),size: 45)),
-                                  ),
-                                ),
-                              )
-                              : Container();
-                        },
-                      )
-
+                      SizedBox(height: 85)
                     ],
                   ),
                 ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Consumer(
+              builder: (BuildContext _context, ModeController modeController,
+                  Widget child) {
+                return modeController.isOnline
+                    ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AnimatedCrossFade(
+                    crossFadeState: !postSent ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    duration: Duration(seconds: 1),
+                    firstChild: Container(
+                      height: 60,
+                      width: 300,
+                      child: FloatingActionButton.extended(
+                          backgroundColor: Colors.black,
+                          shape: Border.all(color: Color(0xFFFFE444), width: 4),
+                          onPressed: () {
+                            checkAndSendPost();
+                          },
+                          label: Text("Reportar", style: TextStyle(
+                              color: Color(0xFFFFE444),
+                              fontSize: 20
+                          ),)),
+                    ),
+                    secondChild: Container(
+                      height: 60,
+                      width: 300,
+                      child: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              border: Border.all(color: Color(0xFFFFE444), width: 4),
+                              shape: BoxShape.circle
+                          ),
+                          child: Icon(Icons.check, color: Color(0xFFFFE444),size: 45)),
+                    ),
+                  ),
+                )
+                    : Container();
+              },
+            ),
+          )
 
         ],
       ),
