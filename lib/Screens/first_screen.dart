@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Models/mode_controller.dart';
 import 'package:star_wars_project/Widgets/character_widget.dart';
+import 'package:star_wars_project/Widgets/loading_widget.dart';
 import 'package:star_wars_project/service.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -99,7 +100,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 children: _characterList(snapshot.data),
                               );
                             } else {
-                              return Center(child: CircularProgressIndicator());
+                              return LoadingWidget();
                             }
                           },
                         ),
