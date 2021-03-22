@@ -33,6 +33,7 @@ class _FirstScreenState extends State<FirstScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
+                color: Colors.black,
                   image: DecorationImage(
                       fit: BoxFit.fitHeight,
                       image: AssetImage(
