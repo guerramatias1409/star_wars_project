@@ -39,8 +39,8 @@ class CharacterWidget extends StatelessWidget {
     );
   }
 
-  void selectAndGoToSecondScreen(BuildContext _context) {
-    Provider.of<MyCharacterController>(_context, listen: false).selectCharacter(character);
+  void selectAndGoToSecondScreen(BuildContext _context) async{
+    await Provider.of<MyCharacterController>(_context, listen: false).selectCharacter(character);
     Navigator.push(_context, MaterialPageRoute(builder: (context) => SecondScreen()));
   }
 }
