@@ -20,8 +20,11 @@ class MyCharacterController extends ChangeNotifier{
     starships.clear();
     selectedCharacter = _character;
     getPlanet();
+    //print("PLANET: ${planet.name}");
     getVehicles();
+    print("VEHICLES LENGHTE: ${vehicles.length}");
     getStarships();
+    print("STARSHIPS LENGHTE: ${starships.length}");
     notifyListeners();
   }
 
