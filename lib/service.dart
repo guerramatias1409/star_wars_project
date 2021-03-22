@@ -107,7 +107,7 @@ Future<List<Starship>> getCharacterStarships(dynamic starshipsList) async {
   return starships;
 }
 
-Future<void> sendPost(Character character) async {
+Future<int> sendPost(Character character) async {
   print("send post init");
   final response =
       await http.post(Uri.parse('https://jsonplaceholder.typicode.com/posts/'),
@@ -123,7 +123,9 @@ Future<void> sendPost(Character character) async {
   if (response.statusCode == 201) {
     print("POST SENT");
     print("POST: ${response.body}");
+    return 1;
   } else {
     print("FAILED TO POST, TRY AGAIN");
+    return 0;
   }
 }

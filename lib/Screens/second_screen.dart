@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,7 @@ class _SecondScreenState extends State<SecondScreen>
   Animation<int> animation;
   int index = 0;
   ImageProvider background = AssetImage("Assets/fondo3.jpg");
+  bool postSent = false;
 
   @override
   void didChangeDependencies() {
@@ -135,26 +138,50 @@ class _SecondScreenState extends State<SecondScreen>
                           },
                         ),
                       ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Consumer(
+                        builder: (BuildContext _context, ModeController modeController,
+                            Widget child) {
+                          return modeController.isOnline
+                              ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: AnimatedCrossFade(
+                                  crossFadeState: !postSent ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                  duration: Duration(seconds: 1),
+                                  firstChild: Container(
+                                    height: 60,
+                                    width: 300,
+                                    child: FloatingActionButton.extended(
+                                        onPressed: () {
+                                          checkAndSendPost();
+                                        },
+                                        label: Text("Reportar")),
+                                  ),
+                                  secondChild: Container(
+                                    height: 60,
+                                    width: 300,
+                                    child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            border: Border.all(color: Color(0xFFFFE444), width: 4),
+                                            shape: BoxShape.circle
+                                        ),
+                                        child: Icon(Icons.check, color: Color(0xFFFFE444),size: 45)),
+                                  ),
+                                ),
+                              )
+                              : Container();
+                        },
+                      )
+
                     ],
                   ),
                 ),
-          Consumer(
-            builder: (BuildContext _context, ModeController modeController,
-                Widget child) {
-              return modeController.isOnline
-                  ? Positioned(
-                      bottom: 10,
-                      left: 10,
-                      right: 10,
-                      child: FloatingActionButton.extended(
-                          onPressed: () {
-                            checkAndSendPost();
-                          },
-                          label: Text("Reportar")),
-                    )
-                  : Container();
-            },
-          )
+
         ],
       ),
     );
@@ -167,7 +194,15 @@ class _SecondScreenState extends State<SecondScreen>
       Provider.of<ModeController>(context, listen: false)
           .changeMode(connectivityBoolean: false);
     } else {
-      sendPost(character);
+      sendPost(character).then((result) {
+        if(result==1){
+          Timer(Duration(seconds: 1), (){
+            setState(() {
+              postSent = true;
+            });
+          });
+        }
+      });
     }
   }
 }
