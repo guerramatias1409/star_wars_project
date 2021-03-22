@@ -16,13 +16,13 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderStateMixin<SecondScreen>{
+class _SecondScreenState extends State<SecondScreen>
+    with SingleTickerProviderStateMixin<SecondScreen> {
   Character character;
   Planet planet;
   List<Vehicle> vehicles = [];
   List<Starship> starships = [];
   String characterText = "";
-  bool isReady = false;
   AnimationController controller;
   Animation<int> animation;
   int index = 0;
@@ -30,10 +30,12 @@ class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderSt
 
   @override
   void didChangeDependencies() {
-    if(index==0){
-      controller = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    if (index == 0) {
+      controller =
+          AnimationController(vsync: this, duration: Duration(seconds: 3));
       getCharacter();
-      animation = IntTween(begin: 0, end: characterText.length).animate(controller);
+      animation =
+          IntTween(begin: 0, end: characterText.length).animate(controller);
       index++;
     }
     super.didChangeDependencies();
@@ -45,12 +47,15 @@ class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderSt
     super.dispose();
   }
 
-
   void getCharacter() async {
     character = Provider.of<MyCharacterController>(context).selectedCharacter;
+    print("CHARACTER NAME: ${character.name}");
     planet = Provider.of<MyCharacterController>(context).planet;
+    print("PLANET ${planet.name}");
     vehicles = Provider.of<MyCharacterController>(context).vehicles;
+    print("VEHICLES LENGHT: ${vehicles.length}");
     starships = Provider.of<MyCharacterController>(context).starships;
+    print("STARSHIPS LENGHT: ${starships.length}");
     setText();
   }
 
@@ -89,61 +94,64 @@ class _SecondScreenState extends State<SecondScreen> with SingleTickerProviderSt
         children: [
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: background)),
+                image: DecorationImage(fit: BoxFit.cover, image: background)),
           ),
           character == null
               ? Container()
               : Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 8),
-                child: AnimatedBuilder(
-                  animation: animation,
-                  builder: (BuildContext context, Widget child){
-                    return Text(characterText.substring(0, animation.value), style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                      decoration: TextDecoration.none,
-                    ),);
-                  },
-                )
-              /*AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 3000),
-                      style: isReady ?
-                      TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        decoration: TextDecoration.none,
-                        letterSpacing: 0,
-                      ) :
-                      TextStyle(
-                        color: Colors.transparent,
-                        fontSize: 25,
-                        decoration: TextDecoration.none,
-                        letterSpacing: 0,
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Column(
+                    children: [
+                      Text(
+                        character.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 45,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
-                      child: Text(
-                        characterText
-                      )*/
-            ),
-          ),
+                      SingleChildScrollView(
+                        child: AnimatedBuilder(
+                          animation: animation,
+                          builder: (BuildContext context, Widget child) {
+                            return Container(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                child: Text(
+                                  characterText.substring(0, animation.value),
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 25,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
           Consumer(
-            builder: (BuildContext _context,
-                ModeController modeController, Widget child) {
+            builder: (BuildContext _context, ModeController modeController,
+                Widget child) {
               return modeController.isOnline
                   ? Positioned(
-                bottom: 10,
-                left: 10,
-                right: 10,
-                child: FloatingActionButton.extended(
-                    onPressed: () {
-                      checkAndSendPost();
-                    },
-                    label: Text("Reportar")),
-              )
+                      bottom: 10,
+                      left: 10,
+                      right: 10,
+                      child: FloatingActionButton.extended(
+                          onPressed: () {
+                            checkAndSendPost();
+                          },
+                          label: Text("Reportar")),
+                    )
                   : Container();
             },
           )
