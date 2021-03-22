@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bordered_text/bordered_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +16,21 @@ class FirstScreen extends StatefulWidget {
   _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _FirstScreenState extends State<FirstScreen>
+    with TickerProviderStateMixin {
   Future<List<Character>> _future;
   ImageProvider background = AssetImage("Assets/fondo4.jpg");
   ImageProvider logo = AssetImage("Assets/logo.png");
+  AnimationController animationController;
 
   @override
   void initState() {
     print("first screen init state");
+    animationController = AnimationController(
+        vsync: this, duration: Duration(seconds: 3));
+    Timer(Duration(seconds: 1),(){
+      animationController.forward();
+    });
     checkInitialConnection();
     super.initState();
   }
@@ -35,39 +44,55 @@ class _FirstScreenState extends State<FirstScreen> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.black,
+                  color: Colors.black,
                   image: DecorationImage(
-                      fit: BoxFit.fitHeight,
-                      image: background)),
+                      fit: BoxFit.fitHeight, image: background)),
             ),
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 16, right: 16, bottom: 10),
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: logo)),
-                  ),
-                ),
-                BorderedText(
-                  strokeWidth: 5,
-                  strokeColor: Color(0xFFFFE444),
-                  child: Text(
-                    "INVASION",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
+                  padding: const EdgeInsets.only(
+                      top: 30, left: 16, right: 16, bottom: 10),
+                  child: FadeTransition(
+                      opacity: animationController
+                          .drive(CurveTween(curve: Curves.easeOut)),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              animationController.repeat();
+                            },
+                            child: Container(
+                              height: 150,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover, image: logo)),
+                            ),
+                          ),
+                          BorderedText(
+                            strokeWidth: 4,
+                            strokeColor: Color(0xFFFFE444),
+                            child: Text(
+                              "INVASION",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          )
+                        ],
+                      )),
                 ),
                 SizedBox(height: 10),
                 connectivityController.isOnline == false && _future == null
-                    ? Center(child: Text("You need connection to get data", style: TextStyle(color: Colors.white),))
+                    ? Center(
+                        child: Text(
+                        "You need connection to get data",
+                        style: TextStyle(color: Colors.white),
+                      ))
                     : Flexible(
-                      child: FutureBuilder(
+                        child: FutureBuilder(
                           future: _future,
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
                               return GridView.count(
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 crossAxisCount: 2,
@@ -78,7 +103,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             }
                           },
                         ),
-                    )
+                      )
               ],
             )
 
