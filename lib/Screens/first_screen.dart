@@ -20,7 +20,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen>
     with TickerProviderStateMixin {
-  Future<List<Character>> _future;
+  Future<List<Character>> _future; //Use to avoid rebuilding FutureBuilder
   ImageProvider background = AssetImage("Assets/fondo3.jpg");
   ImageProvider darkBackground = AssetImage("Assets/fondo4.jpg");
   ImageProvider logo = AssetImage("Assets/logo.png");
@@ -28,7 +28,6 @@ class _FirstScreenState extends State<FirstScreen>
 
   @override
   void initState() {
-    print("first screen init state");
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 3));
     Timer(Duration(seconds: 1), () {
@@ -62,8 +61,7 @@ class _FirstScreenState extends State<FirstScreen>
                   data: Theme.of(context).copyWith(
                     canvasColor: darkModeController.isDarkMode
                         ? Colors.white.withOpacity(0.9)
-                        : Color(0xFF9B8C85).withOpacity(
-                            0.9),
+                        : Color(0xFF9B8C85).withOpacity(0.9),
                   ),
                   child: Drawer(
                     child: ListView(
@@ -92,8 +90,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                        "Online Mode",
+                                    Text("Online Mode",
                                         style: TextStyle(fontSize: 22)),
                                     Switch(
                                         activeColor: Colors.black,
@@ -107,10 +104,12 @@ class _FirstScreenState extends State<FirstScreen>
                                                       connectivityBoolean:
                                                           value);
                                           if (result == 0) {
-                                            connectivityController.changeCantSwitch(true);
+                                            connectivityController
+                                                .changeCantSwitch(true);
                                           }
                                           if (result == 1) {
-                                            connectivityController.changeCantSwitch(false);
+                                            connectivityController
+                                                .changeCantSwitch(false);
                                           }
                                           if (connectivityController.isOnline ==
                                               true) {
@@ -243,7 +242,8 @@ class _FirstScreenState extends State<FirstScreen>
                                                 strokeWidth: 2.5,
                                                 strokeColor: Color(0xFFFFE444),
                                                 child: Text(
-                                                  "No data. Please try again later...".toUpperCase(),
+                                                  "No data. Please try again later..."
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.black,
