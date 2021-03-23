@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
-import 'package:star_wars_project/constants.dart';
+import '../Utils/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/planet.dart';

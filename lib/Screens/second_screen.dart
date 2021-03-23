@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
 import 'package:star_wars_project/Widgets/info_message_widget.dart';
-import 'package:star_wars_project/constants.dart';
+import '../Utils/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/connectivity_controller.dart';
 import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/second_screen_body_widget.dart';
-import 'package:star_wars_project/api_service.dart';
+import '../Services/api_service.dart';
 
 class SecondScreen extends StatefulWidget {
   SecondScreen();

@@ -1,6 +1,6 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
-import 'package:star_wars_project/constants.dart';
+import '../Utils/constants.dart';
 
 class LoadingWidget extends StatefulWidget {
   @override
