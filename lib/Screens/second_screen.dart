@@ -194,6 +194,9 @@ class _SecondScreenState extends State<SecondScreen>
       print("No connection, cant refresh");
       Provider.of<ModeController>(context, listen: false)
           .changeMode(connectivityBoolean: false);
+      setState(() {
+        postError = true;
+      });
     } else {
       sendPost(character).then((result) {
         if (result == 1) {
@@ -202,8 +205,13 @@ class _SecondScreenState extends State<SecondScreen>
               postSent = true;
             });
           });
+        } else {
+          setState(() {
+            postError = true;
+          });
         }
       });
     }
   }
+
 }
