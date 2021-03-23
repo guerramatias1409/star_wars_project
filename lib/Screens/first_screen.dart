@@ -72,9 +72,10 @@ class _FirstScreenState extends State<FirstScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Divider(height: 5, color: Colors.black),
                         ),
-                        Consumer<ConnectivityController>(builder: (BuildContext context,
-                            ConnectivityController connectivityController,
-                            Widget child) {
+                        Consumer<ConnectivityController>(builder:
+                            (BuildContext context,
+                                ConnectivityController connectivityController,
+                                Widget child) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Column(
@@ -91,19 +92,9 @@ class _FirstScreenState extends State<FirstScreen>
                                             Colors.black.withOpacity(0.4),
                                         value: connectivityController.isOnline,
                                         onChanged: (value) async {
-                                          var result =
-                                              await connectivityController
-                                                  .changeMode(
-                                                      connectivityBoolean:
-                                                          value);
-                                          if (result == 0) {
-                                            connectivityController
-                                                .changeCantSwitch(true);
-                                          }
-                                          if (result == 1) {
-                                            connectivityController
-                                                .changeCantSwitch(false);
-                                          }
+                                          await connectivityController
+                                              .changeMode(
+                                                  connectivityBoolean: value);
                                           if (connectivityController.isOnline ==
                                               true) {
                                             refreshList();

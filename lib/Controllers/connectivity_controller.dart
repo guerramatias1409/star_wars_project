@@ -5,20 +5,21 @@ class ConnectivityController extends ChangeNotifier {
   bool isOnline = true;
   bool cantSwitch = false;
 
-  Future<int> changeMode({bool connectivityBoolean}) async {
+  Future<void> changeMode({bool connectivityBoolean}) async {
     if (connectivityBoolean == true) {
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult != ConnectivityResult.none) {
         isOnline = connectivityBoolean;
+        cantSwitch = false;
         notifyListeners();
-        return 1;
       } else {
-        return 0;
+        cantSwitch = true;
+        notifyListeners();
       }
     } else {
       isOnline = connectivityBoolean;
+      cantSwitch = false;
       notifyListeners();
-      return 1;
     }
   }
 
