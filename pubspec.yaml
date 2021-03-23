@@ -18,17 +18,19 @@ dependencies:
   connectivity: ^3.0.3
   bordered_text: ^1.0.1
   google_fonts: ^2.0.0
+  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  image_path_android: "assets/darkLogo710x599.png"
+  image_path_ios: "assets/darkLogo710x599.png"
+  ios: true
+  android: true
+
 flutter:
   assets:
     - assets/
-    - assets/fondo1.jpg
-    - assets/fondo2.jpg
-    - assets/fondo3.jpg
-    - assets/fondo4.jpg
-    - assets/logo.png
   uses-material-design: true
