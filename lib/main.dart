@@ -7,8 +7,6 @@ import 'Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
 import 'package:star_wars_project/Widgets/my_scroll_behavior.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
-
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => MyCharacterController()),
@@ -38,7 +36,6 @@ class MyApp extends StatelessWidget {
           letterSpacing: 18,
         )))),
       ),
-      navigatorKey: navigatorKey,
       builder: (context, child) {
         return ScrollConfiguration(behavior: MyScrollBehavior(), child: child);
       },
