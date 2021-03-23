@@ -12,11 +12,8 @@ class Character{
   String skinColor;
   String eyeColor;
   Future<Planet> planet;
-  // String planet;
   Future<List<Vehicle>> vehicles;
-  // List<String> vehicles;
   Future<List<Starship>> starships;
-  // List<String> starships;
 
   Character({this.name, this.height, this.weight, this.gender, this.hairColor, this.skinColor, this.eyeColor, this.planet, this.vehicles, this.starships});
 
