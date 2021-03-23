@@ -189,7 +189,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 strokeColor: Color(0xFFFFE444),
                                 child: Text(
                                   INVASION.toUpperCase(),
-                                  style: Theme.of(context).textTheme.headline1,
+                                  style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               )
                             ],

@@ -18,7 +18,12 @@ class InfoMessageWidget extends StatelessWidget {
             child: Text(
               message.toUpperCase(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                decoration:
+                TextDecoration.none,
+              ),
             ),
           ),
         ),
