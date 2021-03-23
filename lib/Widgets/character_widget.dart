@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
-import 'package:star_wars_project/Screens/Third.dart';
 import 'package:star_wars_project/Screens/second_screen.dart';
-import 'package:star_wars_project/Screens/second_screen2.dart';
+import 'package:star_wars_project/Screens/second_screen_dark.dart';
 
 class CharacterWidget extends StatefulWidget {
   final Character character;
@@ -32,14 +31,22 @@ class _CharacterWidgetState extends State<CharacterWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(widget.character.name, style: TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-              Text(height == null
-                  ? "Height: unknown"
-                  : height > 100
-                      ? "Height: ${height / 100}m"
-                      : "Height: ${height}cm"),
-              Text(weight == null ? "Weight: unknown" : "Weight: $weight kg"),
-              Text("Gender: ${widget.character.gender}")
+              Text(widget.character.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center),
+              Text(
+                  height == null
+                      ? "Height: unknown"
+                      : height > 100
+                          ? "Height: ${height / 100}m"
+                          : "Height: ${height}cm",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+              Text(weight == null ? "Weight: unknown" : "Weight: $weight kg",
+                  style: TextStyle(fontSize: 15)),
+              Text("Gender: ${widget.character.gender}",
+                  style: TextStyle(fontSize: 15))
             ],
           ),
         ),
@@ -48,7 +55,9 @@ class _CharacterWidgetState extends State<CharacterWidget> {
   }
 
   void selectAndGoToSecondScreen() {
-    Provider.of<MyCharacterController>(context, listen: false).selectCharacter(widget.character);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen()));
+    Provider.of<MyCharacterController>(context, listen: false)
+        .selectCharacter(widget.character);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SecondScreenDark()));
   }
 }

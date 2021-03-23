@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bordered_text/bordered_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

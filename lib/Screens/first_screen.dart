@@ -243,7 +243,7 @@ class _FirstScreenState extends State<FirstScreen>
                                                 strokeWidth: 2.5,
                                                 strokeColor: Color(0xFFFFE444),
                                                 child: Text(
-                                                  "No data".toUpperCase(),
+                                                  "No data. Please try again later...".toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.black,
