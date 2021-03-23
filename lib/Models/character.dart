@@ -1,7 +1,7 @@
 import 'package:star_wars_project/Models/planet.dart';
 import 'package:star_wars_project/Models/starship.dart';
 import 'package:star_wars_project/Models/vehicle.dart';
-import 'package:star_wars_project/service.dart';
+import 'package:star_wars_project/api_service.dart';
 
 class Character{
   String name;

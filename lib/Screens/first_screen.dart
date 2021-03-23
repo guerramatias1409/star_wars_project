@@ -9,7 +9,7 @@ import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
 import 'package:star_wars_project/Widgets/character_widget.dart';
 import 'package:star_wars_project/Widgets/loading_widget.dart';
-import 'package:star_wars_project/service.dart';
+import 'package:star_wars_project/api_service.dart';
 
 class FirstScreen extends StatefulWidget {
   FirstScreen({Key key}) : super(key: key);

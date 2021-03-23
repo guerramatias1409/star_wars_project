@@ -8,7 +8,7 @@ import '../Controllers/mode_controller.dart';
 import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/second_screen_body_widget.dart';
-import 'package:star_wars_project/service.dart';
+import 'package:star_wars_project/api_service.dart';
 
 class SecondScreen extends StatefulWidget {
   SecondScreen();
