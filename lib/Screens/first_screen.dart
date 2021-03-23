@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
-import 'package:star_wars_project/Widgets/no_data_widget.dart';
+import 'package:star_wars_project/Widgets/info_message_widget.dart';
 import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
