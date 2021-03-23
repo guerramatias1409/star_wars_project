@@ -170,7 +170,7 @@ class _SecondScreenState extends State<SecondScreen>
     if (connectivityResult == ConnectivityResult.none) {
       print("No connection, cant refresh");
       Provider.of<ConnectivityController>(context, listen: false)
-          .changeMode(connectivityBoolean: false);
+          .changeMode(value: false);
       setState(() {
         postError = true;
       });

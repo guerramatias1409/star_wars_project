@@ -94,9 +94,8 @@ class _FirstScreenState extends State<FirstScreen>
                                         onChanged: (value) async {
                                           await connectivityController
                                               .changeMode(
-                                                  connectivityBoolean: value);
-                                          if (connectivityController.isOnline ==
-                                              true) {
+                                                  value: value);
+                                          if (connectivityController.isOnline) {
                                             refreshList();
                                           }
                                         })
@@ -235,10 +234,10 @@ class _FirstScreenState extends State<FirstScreen>
     print(connectivityResult);
     if (connectivityResult == ConnectivityResult.none) {
       Provider.of<ConnectivityController>(context, listen: false)
-          .changeMode(connectivityBoolean: false);
+          .changeMode(value: false);
     } else {
       Provider.of<ConnectivityController>(context, listen: false)
-          .changeMode(connectivityBoolean: true);
+          .changeMode(value: true);
       refreshList();
     }
   }
