@@ -9,7 +9,7 @@ import 'package:star_wars_project/Widgets/background_widget.dart';
 import 'package:star_wars_project/Widgets/info_message_widget.dart';
 import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
-import '../Controllers/mode_controller.dart';
+import '../Controllers/connectivity_controller.dart';
 import 'package:star_wars_project/Widgets/character_widget.dart';
 import 'package:star_wars_project/Widgets/loading_widget.dart';
 import 'package:star_wars_project/api_service.dart';
@@ -40,8 +40,8 @@ class _FirstScreenState extends State<FirstScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ModeController>(builder: (BuildContext context,
-        ModeController connectivityController, Widget child) {
+    return Consumer<ConnectivityController>(builder: (BuildContext context,
+        ConnectivityController connectivityController, Widget child) {
       return Consumer<DarkModeController>(builder: (BuildContext context,
           DarkModeController darkModeController, Widget child) {
         return Material(
@@ -72,8 +72,8 @@ class _FirstScreenState extends State<FirstScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Divider(height: 5, color: Colors.black),
                         ),
-                        Consumer<ModeController>(builder: (BuildContext context,
-                            ModeController connectivityController,
+                        Consumer<ConnectivityController>(builder: (BuildContext context,
+                            ConnectivityController connectivityController,
                             Widget child) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -243,10 +243,10 @@ class _FirstScreenState extends State<FirstScreen>
     var connectivityResult = await Connectivity().checkConnectivity();
     print(connectivityResult);
     if (connectivityResult == ConnectivityResult.none) {
-      Provider.of<ModeController>(context, listen: false)
+      Provider.of<ConnectivityController>(context, listen: false)
           .changeMode(connectivityBoolean: false);
     } else {
-      Provider.of<ModeController>(context, listen: false)
+      Provider.of<ConnectivityController>(context, listen: false)
           .changeMode(connectivityBoolean: true);
       refreshList();
     }

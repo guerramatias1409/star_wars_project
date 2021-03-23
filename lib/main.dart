@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'Controllers/dark_mode_controller.dart';
-import 'Controllers/mode_controller.dart';
+import 'Controllers/connectivity_controller.dart';
 import 'Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
 import 'package:star_wars_project/Widgets/my_scroll_behavior.dart';
@@ -10,7 +10,7 @@ import 'package:star_wars_project/Widgets/my_scroll_behavior.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => MyCharacterController()),
-    ChangeNotifierProvider(create: (context) => ModeController()),
+    ChangeNotifierProvider(create: (context) => ConnectivityController()),
     ChangeNotifierProvider(create: (context) => DarkModeController())
   ], child: MyApp()));
 }

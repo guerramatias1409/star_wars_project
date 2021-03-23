@@ -7,7 +7,7 @@ import 'package:star_wars_project/Widgets/background_widget.dart';
 import 'package:star_wars_project/Widgets/info_message_widget.dart';
 import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
-import '../Controllers/mode_controller.dart';
+import '../Controllers/connectivity_controller.dart';
 import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/second_screen_body_widget.dart';
@@ -78,9 +78,9 @@ class _SecondScreenState extends State<SecondScreen>
                   ? Container()
                   : Align(
                       alignment: Alignment.bottomCenter,
-                      child: Consumer<ModeController>(
+                      child: Consumer<ConnectivityController>(
                         builder: (BuildContext _context,
-                            ModeController modeController, Widget child) {
+                            ConnectivityController connectivityController, Widget child) {
                           return postError
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -99,7 +99,7 @@ class _SecondScreenState extends State<SecondScreen>
                                     ),
                                   ),
                                 )
-                              : modeController.isOnline
+                              : connectivityController.isOnline
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 15.0),
@@ -164,7 +164,7 @@ class _SecondScreenState extends State<SecondScreen>
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       print("No connection, cant refresh");
-      Provider.of<ModeController>(context, listen: false)
+      Provider.of<ConnectivityController>(context, listen: false)
           .changeMode(connectivityBoolean: false);
       setState(() {
         postError = true;

@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 
-class ModeController extends ChangeNotifier {
+class ConnectivityController extends ChangeNotifier {
   bool isOnline = true;
   bool cantSwitch = false;
 
