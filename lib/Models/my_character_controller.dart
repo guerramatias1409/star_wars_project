@@ -9,9 +9,6 @@ class MyCharacterController extends ChangeNotifier{
   Planet planet;
   List<Vehicle> vehicles = [];
   List<Starship> starships = [];
-  /*String planet;
-  List<String> vehicles = [];
-  List<String> starships = [];*/
 
   MyCharacterController();
 
@@ -20,18 +17,12 @@ class MyCharacterController extends ChangeNotifier{
     starships.clear();
     selectedCharacter = _character;
     getPlanet();
-    //print("PLANET: ${planet.name}");
     getVehicles();
-    print("VEHICLES LENGHTE: ${vehicles.length}");
     getStarships();
-    print("STARSHIPS LENGHTE: ${starships.length}");
     notifyListeners();
   }
 
   void getPlanet() {
-    /*setState(() {
-      planet = character.planet;
-    });*/
     selectedCharacter.planet.then((Planet _planetData) {
       planet = _planetData;
     });
@@ -39,9 +30,6 @@ class MyCharacterController extends ChangeNotifier{
   }
 
   void getVehicles() {
-    /*character.vehicles.forEach((element) {
-      vehicles.add(element);
-    });*/
     selectedCharacter.vehicles.then((List<Vehicle> _vehicles) {
       _vehicles.forEach((Vehicle _vehicle) {
         vehicles.add(_vehicle);
@@ -51,10 +39,6 @@ class MyCharacterController extends ChangeNotifier{
   }
 
   void getStarships() {
-    /*character.starships.forEach((element) {
-      starships.add(element);
-    });*/
-
     selectedCharacter.starships.then((List<Starship> _starships) {
       _starships.forEach((Starship _starship) {
         starships.add(_starship);
