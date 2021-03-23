@@ -23,6 +23,9 @@ class _CharacterWidgetState extends State<CharacterWidget> {
         selectAndGoToSecondScreen();
       },
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+        ),
         color: Colors.white.withOpacity(0.3),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -41,7 +44,7 @@ class _CharacterWidgetState extends State<CharacterWidget> {
                       : height > 100
                           ? "Height: ${height / 100}m"
                           : "Height: ${height}cm",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                  style: TextStyle(fontSize: 15)),
               Text(weight == null ? "Weight: unknown" : "Weight: $weight kg",
                   style: TextStyle(fontSize: 15)),
               Text("Gender: ${widget.character.gender}",
