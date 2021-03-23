@@ -124,11 +124,16 @@ class _SecondScreenState extends State<SecondScreen>
                                                   checkAndSendPost();
                                                 }
                                               },
-                                              label: Text(
+                                              label: !sendingPost ? Text(
                                                 REPORT,
                                                 style: TextStyle(
                                                     color: Color(0xFFFFE444),
                                                     fontSize: 20),
+                                              ) : Padding(
+                                                padding: const EdgeInsets.all(2.0),
+                                                child: CircularProgressIndicator(
+                                                  color: Color(0xFFFFE444),
+                                                ),
                                               )),
                                         ),
                                         secondChild: Container(
