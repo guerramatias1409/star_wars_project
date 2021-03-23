@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bordered_text/bordered_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _SecondScreenState extends State<SecondScreen>
   Animation<int> animation;
   int index = 0;
   ImageProvider background = AssetImage("Assets/fondo3.jpg");
+  bool sendingPost = false;
   bool postSent = false;
 
   @override
@@ -128,7 +130,24 @@ class _SecondScreenState extends State<SecondScreen>
                   decoration: TextDecoration.none,
                 ),
               ),
-              Flexible(
+              planet == null ?
+              Expanded(
+                child: Container(
+                  width: 300,
+                  child: Center(
+                      child: Text(
+                        "Couldn't load data. Please try again...".toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        )
+                        ,
+                      )                  ),
+                ),
+              ) : Flexible(
                 child: SingleChildScrollView(
                   child: AnimatedBuilder(
                     animation: animation,
@@ -155,19 +174,7 @@ class _SecondScreenState extends State<SecondScreen>
               ),
               SizedBox(height: 85)
             ],
-          )
-          /*Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.black,
-              iconTheme: IconThemeData(
-                color: Colors.black, //change your color here
-              ),
-            ),
-            body: ,
-          ),*/,
+          ) ,
           Align(
             alignment: Alignment.bottomCenter,
             child: Consumer(
@@ -186,7 +193,12 @@ class _SecondScreenState extends State<SecondScreen>
                           backgroundColor: Colors.black,
                           shape: Border.all(color: Color(0xFFFFE444), width: 4),
                           onPressed: () {
-                            checkAndSendPost();
+                            if(!sendingPost){
+                              setState(() {
+                                sendingPost = true;
+                              });
+                              checkAndSendPost();
+                            }
                           },
                           label: Text("Report", style: TextStyle(
                               color: Color(0xFFFFE444),
