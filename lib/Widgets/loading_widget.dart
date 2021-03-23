@@ -13,7 +13,7 @@ class _LoadingWidgetState extends State<LoadingWidget> with SingleTickerProvider
   
   @override
   void initState() {
-    controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
     animation = IntTween(begin: 0, end: threeDots.length).animate(controller);
     controller.repeat();
     super.initState();
