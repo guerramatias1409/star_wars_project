@@ -5,6 +5,7 @@ import 'package:star_wars_project/Models/dark_mode_controller.dart';
 import 'package:star_wars_project/Models/mode_controller.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
+import 'package:star_wars_project/Widgets/my_scroll_behavior.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -26,20 +27,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Star Wars App',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.robotoMonoTextTheme(textTheme).copyWith(
-          subtitle1: GoogleFonts.robotoMono(textStyle: GoogleFonts.robotoMono(
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 28,
-                decoration: TextDecoration.none,
-                letterSpacing: 18,
-              )
-          ))
-        ),
+            subtitle1: GoogleFonts.robotoMono(
+                textStyle: GoogleFonts.robotoMono(
+                    textStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 28,
+          decoration: TextDecoration.none,
+          letterSpacing: 18,
+        )))),
       ),
       navigatorKey: navigatorKey,
+      builder: (context, child) {
+        return ScrollConfiguration(behavior: MyScrollBehavior(), child: child);
+      },
       home: FirstScreen(),
     );
   }
