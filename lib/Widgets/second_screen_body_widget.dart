@@ -85,7 +85,7 @@ class _SecondScreenBodyWidgetState extends State<SecondScreenBodyWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
+    return Consumer<DarkModeController>(
       builder: (BuildContext context, DarkModeController darkModeController,
           Widget child) {
         return darkModeController.isDarkMode

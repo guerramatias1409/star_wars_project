@@ -40,9 +40,9 @@ class _FirstScreenState extends State<FirstScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (BuildContext context,
+    return Consumer<ModeController>(builder: (BuildContext context,
         ModeController connectivityController, Widget child) {
-      return Consumer(builder: (BuildContext context,
+      return Consumer<DarkModeController>(builder: (BuildContext context,
           DarkModeController darkModeController, Widget child) {
         return Material(
           child: Stack(
@@ -72,7 +72,7 @@ class _FirstScreenState extends State<FirstScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Divider(height: 5, color: Colors.black),
                         ),
-                        Consumer(builder: (BuildContext context,
+                        Consumer<ModeController>(builder: (BuildContext context,
                             ModeController connectivityController,
                             Widget child) {
                           return Padding(

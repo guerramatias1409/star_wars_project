@@ -44,7 +44,7 @@ class _SecondScreenState extends State<SecondScreen>
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar();
-    return Consumer(
+    return Consumer<DarkModeController>(
       builder: (BuildContext context, DarkModeController darkModeController,
           Widget child) {
         return Material(
@@ -78,7 +78,7 @@ class _SecondScreenState extends State<SecondScreen>
                   ? Container()
                   : Align(
                       alignment: Alignment.bottomCenter,
-                      child: Consumer(
+                      child: Consumer<ModeController>(
                         builder: (BuildContext _context,
                             ModeController modeController, Widget child) {
                           return postError

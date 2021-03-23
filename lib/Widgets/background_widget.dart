@@ -8,7 +8,7 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
+    return Consumer<DarkModeController>(
       builder: (BuildContext context,
           DarkModeController darkModeController, Widget child){
         return Container(
