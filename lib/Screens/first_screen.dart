@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
+import 'package:star_wars_project/Widgets/no_data_widget.dart';
 import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
@@ -116,8 +117,7 @@ class _FirstScreenState extends State<FirstScreen>
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
-                                        child: Text(
-                                            NEED_CONNECTION_TO_SWITCH,
+                                        child: Text(NEED_CONNECTION_TO_SWITCH,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 12,
@@ -131,8 +131,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
-                                  child: Text(
-                                      DRAWER_ONLINE_MODE_TEXT,
+                                  child: Text(DRAWER_ONLINE_MODE_TEXT,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 13)),
                                 ),
@@ -227,27 +226,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   return snapshot.data == null
-                                      ? Expanded(
-                                          child: Container(
-                                            width: 300,
-                                            child: Center(
-                                              child: BorderedText(
-                                                strokeWidth: 2.5,
-                                                strokeColor: Color(0xFFFFE444),
-                                                child: Text(
-                                                  NO_DATA.toUpperCase(),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 25,
-                                                    decoration:
-                                                        TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
+                                      ? NoDataWidget()
                                       : GridView.count(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 8),

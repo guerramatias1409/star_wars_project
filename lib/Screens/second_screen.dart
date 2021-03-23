@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
+import 'package:star_wars_project/Widgets/no_data_widget.dart';
 import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
@@ -71,28 +72,7 @@ class _SecondScreenState extends State<SecondScreen>
                               : Colors.black),
                     ),
                   ),
-                  character == null
-                      ? Expanded(
-                          child: Container(
-                            width: 300,
-                            child: Center(
-                              child: BorderedText(
-                                strokeWidth: 2.5,
-                                strokeColor: Color(0xFFFFE444),
-                                child: Text(
-                                  NO_DATA.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : SecondScreenBodyWidget(),
+                  character == null ? NoDataWidget() : SecondScreenBodyWidget(),
                   SizedBox(height: 110)
                 ],
               ),
@@ -123,7 +103,8 @@ class _SecondScreenState extends State<SecondScreen>
                                 )
                               : modeController.isOnline
                                   ? Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0),
                                       child: AnimatedCrossFade(
                                         crossFadeState: !postSent
                                             ? CrossFadeState.showFirst
@@ -206,5 +187,4 @@ class _SecondScreenState extends State<SecondScreen>
       });
     }
   }
-
 }
