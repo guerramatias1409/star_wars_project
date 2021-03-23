@@ -54,13 +54,9 @@ class _SecondScreenState extends State<SecondScreen>
 
   void getCharacter() async {
     character = Provider.of<MyCharacterController>(context).selectedCharacter;
-    print("CHARACTER NAME: ${character.name}");
     planet = Provider.of<MyCharacterController>(context).planet;
-    print("PLANET ${planet.name}");
     vehicles = Provider.of<MyCharacterController>(context).vehicles;
-    print("VEHICLES LENGHT: ${vehicles.length}");
     starships = Provider.of<MyCharacterController>(context).starships;
-    print("STARSHIPS LENGHT: ${starships.length}");
     setText();
   }
 
