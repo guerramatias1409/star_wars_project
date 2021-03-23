@@ -139,7 +139,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: Text(
-                                      "(Offline Mode won't allow you to reload data or send reports. To do this, please switch to Online Mode)",
+                                      "(Offline Mode won't allow you to reload data or send reports. To do this, switch to Online Mode)",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 13)),
                                 ),
