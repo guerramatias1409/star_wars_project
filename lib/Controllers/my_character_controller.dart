@@ -10,8 +10,6 @@ class MyCharacterController extends ChangeNotifier{
   List<Vehicle> vehicles = [];
   List<Starship> starships = [];
 
-  MyCharacterController();
-
   void selectCharacter(Character _character) async {
     vehicles.clear();
     starships.clear();
