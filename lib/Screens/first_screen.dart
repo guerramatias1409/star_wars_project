@@ -5,6 +5,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/Widgets/background_widget.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
 import 'package:star_wars_project/Widgets/character_widget.dart';
@@ -46,15 +47,7 @@ class _FirstScreenState extends State<FirstScreen>
         return Material(
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: darkModeController.isDarkMode
-                            ? darkBackground
-                            : background)),
-              ),
+              BackgroundWidget(),
               Scaffold(
                 backgroundColor: Colors.transparent,
                 drawer: Theme(
@@ -285,18 +278,6 @@ class _FirstScreenState extends State<FirstScreen>
       list.add(CharacterWidget(character: character));
     });
     return list;
-  }
-
-  void rebuildList() async {
-    print("Entro a rebuild");
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      print("No connection, cant refresh");
-      Provider.of<ModeController>(context, listen: false)
-          .changeMode(connectivityBoolean: false);
-    } else {
-      refreshList();
-    }
   }
 
   void checkInitialConnection() async {

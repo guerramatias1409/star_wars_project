@@ -3,6 +3,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:star_wars_project/Widgets/background_widget.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
 import '../Controllers/my_character_controller.dart';
@@ -49,14 +50,7 @@ class _SecondScreenState extends State<SecondScreen>
         return Material(
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: darkModeController.isDarkMode
-                            ? backgroundDark
-                            : background)),
-              ),
+              BackgroundWidget(),
               Column(
                 children: [
                   SizedBox(height: 30),
