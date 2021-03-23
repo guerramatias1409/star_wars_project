@@ -30,7 +30,15 @@ class APIService {
     String charactersUrl = 'https://swapi.dev/api/people/';
     List<Character> characters = [];
 
-    int index = 0;
+    //TODO esta funcion solo toma los primeros 10 resultados
+    var response = await http.get(Uri.parse(charactersUrl));
+    var jsonData = json.decode(response.body);
+    var list = jsonData['results'] as List;
+    list.forEach((element) async {
+      characters.add(Character.fromJson(element));
+    });
+
+    /*int index = 0;
     var jsonData;
     do {
       var response = await http.get(Uri.parse(index == 0
@@ -42,7 +50,7 @@ class APIService {
         characters.add(Character.fromJson(element));
       });
       index++;
-    } while (jsonData['next'] != "" && jsonData['next'] != null);
+    } while (jsonData['next'] != "" && jsonData['next'] != null);*/
 
     print("CHARACTERS LENGHT: ${characters.length}");
 

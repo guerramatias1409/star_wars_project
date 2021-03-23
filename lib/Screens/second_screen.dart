@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
+import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
 import '../Controllers/my_character_controller.dart';
@@ -79,8 +80,7 @@ class _SecondScreenState extends State<SecondScreen>
                                 strokeWidth: 2.5,
                                 strokeColor: Color(0xFFFFE444),
                                 child: Text(
-                                  "No data. Please try again later..."
-                                      .toUpperCase(),
+                                  NO_DATA.toUpperCase(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.black,
@@ -111,8 +111,7 @@ class _SecondScreenState extends State<SecondScreen>
                                     strokeWidth: 2.5,
                                     strokeColor: Color(0xFFFFE444),
                                     child: Text(
-                                      "We couldn't send the report. Please try again later..."
-                                          .toUpperCase(),
+                                      COULDNT_SEND_REPORT.toUpperCase(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -147,7 +146,7 @@ class _SecondScreenState extends State<SecondScreen>
                                                 }
                                               },
                                               label: Text(
-                                                "Report",
+                                                REPORT,
                                                 style: TextStyle(
                                                     color: Color(0xFFFFE444),
                                                     fontSize: 20),

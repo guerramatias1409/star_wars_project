@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
+import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/planet.dart';
@@ -111,8 +112,7 @@ class _SecondScreenBodyWidgetState extends State<SecondScreenBodyWidget> with Ti
                       width: 300,
                       child: Center(
                           child: Text(
-                            "Couldn't load data. Please try again..."
-                                .toUpperCase(),
+                            COULDNT_LOAD_TRY_AGAIN.toUpperCase(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black,
@@ -176,7 +176,7 @@ class _SecondScreenBodyWidgetState extends State<SecondScreenBodyWidget> with Ti
                   width: 300,
                   child: Center(
                       child: Text(
-                        "Couldn't load data. Please try again...".toUpperCase(),
+                        COULDNT_LOAD_TRY_AGAIN.toUpperCase(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

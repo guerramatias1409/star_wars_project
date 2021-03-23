@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Widgets/background_widget.dart';
+import 'package:star_wars_project/constants.dart';
 import '../Controllers/dark_mode_controller.dart';
 import '../Controllers/mode_controller.dart';
 import 'package:star_wars_project/Widgets/character_widget.dart';
@@ -64,7 +65,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 16.0, 16.0, 16.0, 8.0),
                             margin: const EdgeInsets.only(bottom: 8.0),
                             child: Text(
-                              "Manage App Modes",
+                              MANAGE_APP_MODES,
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold),
                             )),
@@ -83,7 +84,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Online Mode",
+                                    Text(ONLINE_MODE,
                                         style: TextStyle(fontSize: 22)),
                                     Switch(
                                         activeColor: Colors.black,
@@ -116,7 +117,7 @@ class _FirstScreenState extends State<FirstScreen>
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
                                         child: Text(
-                                            "You need internet connection to switch",
+                                            NEED_CONNECTION_TO_SWITCH,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 12,
@@ -131,7 +132,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: Text(
-                                      "(Offline Mode won't allow you to reload data or send reports. To do this, switch to Online Mode)",
+                                      DRAWER_ONLINE_MODE_TEXT,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 13)),
                                 ),
@@ -141,7 +142,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Dark Mode",
+                                    Text(DARK_MODE,
                                         style: TextStyle(fontSize: 22)),
                                     Switch(
                                         activeColor: Colors.black,
@@ -190,7 +191,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 strokeWidth: 4,
                                 strokeColor: Color(0xFFFFE444),
                                 child: Text(
-                                  "INVASION",
+                                  INVASION.toUpperCase(),
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               )
@@ -207,8 +208,7 @@ class _FirstScreenState extends State<FirstScreen>
                                   strokeWidth: 2.5,
                                   strokeColor: Color(0xFFFFE444),
                                   child: Text(
-                                    "You need connection to get data. Switch to Online Mode"
-                                        .toUpperCase(),
+                                    NEED_CONNECTION_TO_GET.toUpperCase(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -235,8 +235,7 @@ class _FirstScreenState extends State<FirstScreen>
                                                 strokeWidth: 2.5,
                                                 strokeColor: Color(0xFFFFE444),
                                                 child: Text(
-                                                  "No data. Please try again later..."
-                                                      .toUpperCase(),
+                                                  NO_DATA.toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.black,
