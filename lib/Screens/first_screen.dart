@@ -24,8 +24,6 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen>
     with TickerProviderStateMixin {
   Future<List<Character>> _future; //Use to avoid rebuilding FutureBuilder
-  ImageProvider background = AssetImage("Assets/fondo3.jpg");
-  ImageProvider darkBackground = AssetImage("Assets/fondo4.jpg");
   ImageProvider logo = AssetImage("Assets/logo.png");
   AnimationController animationController;
 

@@ -24,8 +24,6 @@ class _SecondScreenState extends State<SecondScreen>
     with SingleTickerProviderStateMixin<SecondScreen> {
   Character character;
   int index = 0;
-  ImageProvider background = AssetImage("Assets/fondo3.jpg");
-  ImageProvider backgroundDark = AssetImage("Assets/fondo4.jpg");
   bool sendingPost = false;
   bool postSent = false;
   bool postError = false;
