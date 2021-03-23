@@ -10,17 +10,17 @@ import 'package:star_wars_project/Widgets/character_widget.dart';
 import 'package:star_wars_project/Widgets/loading_widget.dart';
 import 'package:star_wars_project/service.dart';
 
-class FirstScreen extends StatefulWidget {
-  FirstScreen({Key key}) : super(key: key);
+class FirstScreenDark extends StatefulWidget {
+  FirstScreenDark({Key key}) : super(key: key);
 
   @override
-  _FirstScreenState createState() => _FirstScreenState();
+  _FirstScreenDarkState createState() => _FirstScreenDarkState();
 }
 
-class _FirstScreenState extends State<FirstScreen>
+class _FirstScreenDarkState extends State<FirstScreenDark>
     with TickerProviderStateMixin {
   Future<List<Character>> _future;
-  ImageProvider background = AssetImage("Assets/fondo3.jpg");
+  ImageProvider background = AssetImage("Assets/fondo4.jpg");
   ImageProvider logo = AssetImage("Assets/logo.png");
   AnimationController animationController;
   bool cantSwitch = false;
@@ -54,7 +54,8 @@ class _FirstScreenState extends State<FirstScreen>
               backgroundColor: Colors.transparent,
               drawer: Theme(
                 data: Theme.of(context).copyWith(
-                  canvasColor: Color(0xFF9B8C85).withOpacity(0.9), //This will change the drawer background to blue.
+                  canvasColor: Colors.white.withOpacity(
+                      0.9), //This will change the drawer background to blue.
                   //other styles
                 ),
                 child: Drawer(
@@ -63,7 +64,7 @@ class _FirstScreenState extends State<FirstScreen>
                       //DrawerHeader(child: child),
                       Container(
                           padding:
-                              const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+                          const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
                           margin: const EdgeInsets.only(bottom: 8.0),
                           child: Text(
                             "Manage App Modes",
@@ -77,7 +78,7 @@ class _FirstScreenState extends State<FirstScreen>
                       Consumer(builder: (BuildContext context,
                           ModeController connectivityController, Widget child) {
                         return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
                             children: [
                               Row(
@@ -86,9 +87,9 @@ class _FirstScreenState extends State<FirstScreen>
                                   Text(connectivityController.isOnline
                                       ? "Online Mode"
                                       : "Offline Mode",
-                                  style: TextStyle(
-                                    fontSize: 22
-                                  )),
+                                      style: TextStyle(
+                                          fontSize: 22
+                                      )),
                                   Switch(
                                       activeColor: Colors.black,
                                       inactiveThumbColor: Colors.black.withOpacity(0.4),
@@ -119,8 +120,8 @@ class _FirstScreenState extends State<FirstScreen>
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 12,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold
                                     )),
                               ) : Container(),
                               Padding(
@@ -142,13 +143,13 @@ class _FirstScreenState extends State<FirstScreen>
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                iconTheme: IconThemeData(color: Colors.black),
+                iconTheme: IconThemeData(color: Colors.white),
               ),
               body: Column(
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                    const EdgeInsets.only(left: 16, right: 16, bottom: 10),
                     child: FadeTransition(
                         opacity: animationController
                             .drive(CurveTween(curve: Curves.easeOut)),
@@ -174,43 +175,43 @@ class _FirstScreenState extends State<FirstScreen>
                   SizedBox(height: 10),
                   connectivityController.isOnline == false && _future == null
                       ? Expanded(
-                        child: Container(
-                          width: 300,
-                          child: Center(
-                            child: BorderedText(
-                              strokeWidth: 2.5,
-                              strokeColor: Color(0xFFFFE444),
-                              child: Text(
-                                "You need connection to get data. Switch to Online Mode".toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  decoration: TextDecoration.none,
-                                )
-                                ,
-                              ),
-                            ),
+                    child: Container(
+                      width: 300,
+                      child: Center(
+                        child: BorderedText(
+                          strokeWidth: 2.5,
+                          strokeColor: Color(0xFFFFE444),
+                          child: Text(
+                            "You need connection to get data. Switch to Online Mode".toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              decoration: TextDecoration.none,
+                            )
+                            ,
                           ),
                         ),
-                      )
+                      ),
+                    ),
+                  )
                       : Flexible(
-                          child: FutureBuilder(
-                            future: _future,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return GridView.count(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  crossAxisCount: 2,
-                                  children: _characterList(snapshot.data),
-                                );
-                              } else {
-                                return LoadingWidget();
-                              }
-                            },
-                          ),
-                        ),
+                    child: FutureBuilder(
+                      future: _future,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.done) {
+                          return GridView.count(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            crossAxisCount: 2,
+                            children: _characterList(snapshot.data),
+                          );
+                        } else {
+                          return LoadingWidget();
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             )
