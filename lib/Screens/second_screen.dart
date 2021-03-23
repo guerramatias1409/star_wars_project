@@ -70,7 +70,7 @@ class _SecondScreenState extends State<SecondScreen>
                               : Colors.black),
                     ),
                   ),
-                  character == null ? NoDataWidget() : SecondScreenBodyWidget(),
+                  character == null ? InfoMessageWidget(message: NO_DATA) : SecondScreenBodyWidget(),
                   SizedBox(height: 110)
                 ],
               ),

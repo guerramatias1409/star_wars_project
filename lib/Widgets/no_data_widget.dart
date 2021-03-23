@@ -1,8 +1,11 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
-import 'package:star_wars_project/constants.dart';
 
-class NoDataWidget extends StatelessWidget {
+class InfoMessageWidget extends StatelessWidget {
+  final String message;
+
+  InfoMessageWidget({this.message});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -13,13 +16,9 @@ class NoDataWidget extends StatelessWidget {
             strokeWidth: 2.5,
             strokeColor: Color(0xFFFFE444),
             child: Text(
-              NO_DATA.toUpperCase(),
+              message.toUpperCase(),
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                decoration: TextDecoration.none,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
         ),

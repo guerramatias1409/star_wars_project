@@ -189,7 +189,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 strokeColor: Color(0xFFFFE444),
                                 child: Text(
                                   INVASION.toUpperCase(),
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context).textTheme.headline1,
                                 ),
                               )
                             ],
@@ -197,25 +197,8 @@ class _FirstScreenState extends State<FirstScreen>
                     ),
                     SizedBox(height: 10),
                     connectivityController.isOnline == false && _future == null
-                        ? Expanded(
-                            child: Container(
-                              width: 300,
-                              child: Center(
-                                child: BorderedText(
-                                  strokeWidth: 2.5,
-                                  strokeColor: Color(0xFFFFE444),
-                                  child: Text(
-                                    NEED_CONNECTION_TO_GET.toUpperCase(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 25,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                        ? InfoMessageWidget(
+                            message: NEED_CONNECTION_TO_GET,
                           )
                         : Flexible(
                             child: FutureBuilder(
@@ -224,7 +207,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   return snapshot.data == null
-                                      ? NoDataWidget()
+                                      ? InfoMessageWidget(message: NO_DATA)
                                       : GridView.count(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 8),
