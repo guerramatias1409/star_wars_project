@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.star_wars_project">
    <application
-        android:label="star_wars_project"
+        android:label="Star Wars Invasion"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
