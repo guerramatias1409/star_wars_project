@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Models/character.dart';
 import 'package:star_wars_project/Screens/second_screen.dart';
-import 'package:star_wars_project/Screens/second_screen_dark.dart';
 
 class CharacterWidget extends StatefulWidget {
   final Character character;
@@ -58,6 +57,6 @@ class _CharacterWidgetState extends State<CharacterWidget> {
     Provider.of<MyCharacterController>(context, listen: false)
         .selectCharacter(widget.character);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SecondScreenDark()));
+        context, MaterialPageRoute(builder: (context) => SecondScreen()));
   }
 }

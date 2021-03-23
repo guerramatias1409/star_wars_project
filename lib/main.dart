@@ -5,7 +5,6 @@ import 'package:star_wars_project/Models/dark_mode_controller.dart';
 import 'package:star_wars_project/Models/mode_controller.dart';
 import 'package:star_wars_project/Models/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
-import 'package:star_wars_project/Screens/first_screen_dark.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
