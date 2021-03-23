@@ -26,7 +26,6 @@ class MyCharacterController extends ChangeNotifier{
     selectedCharacter.planet.then((Planet _planetData) {
       planet = _planetData;
     });
-    print("finish get planet");
   }
 
   void getVehicles() {
@@ -35,7 +34,6 @@ class MyCharacterController extends ChangeNotifier{
         vehicles.add(_vehicle);
       });
     });
-    print("finish get vehicles");
   }
 
   void getStarships() {
@@ -44,6 +42,5 @@ class MyCharacterController extends ChangeNotifier{
         starships.add(_starship);
       });
     });
-    print("finish get starships");
   }
 }
