@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:star_wars_project/Models/dark_mode_controller.dart';
-import 'package:star_wars_project/Models/mode_controller.dart';
-import 'package:star_wars_project/Models/my_character_controller.dart';
+import 'Controllers/dark_mode_controller.dart';
+import 'Controllers/mode_controller.dart';
+import 'Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Screens/first_screen.dart';
 import 'package:star_wars_project/Widgets/my_scroll_behavior.dart';
 

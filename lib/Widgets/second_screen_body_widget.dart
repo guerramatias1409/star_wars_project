@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:star_wars_project/Models/character.dart';
-import 'package:star_wars_project/Models/dark_mode_controller.dart';
-import 'package:star_wars_project/Models/my_character_controller.dart';
+import '../Controllers/dark_mode_controller.dart';
+import '../Controllers/my_character_controller.dart';
 import 'package:star_wars_project/Models/planet.dart';
 import 'package:star_wars_project/Models/starship.dart';
 import 'package:star_wars_project/Models/vehicle.dart';
