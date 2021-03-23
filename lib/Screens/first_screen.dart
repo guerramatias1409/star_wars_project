@@ -25,7 +25,6 @@ class _FirstScreenState extends State<FirstScreen>
   ImageProvider darkBackground = AssetImage("Assets/fondo4.jpg");
   ImageProvider logo = AssetImage("Assets/logo.png");
   AnimationController animationController;
-  bool cantSwitch = false;
 
   @override
   void initState() {
@@ -43,7 +42,8 @@ class _FirstScreenState extends State<FirstScreen>
   Widget build(BuildContext context) {
     return Consumer(builder: (BuildContext context,
         ModeController connectivityController, Widget child) {
-      return Consumer(builder: (BuildContext context, DarkModeController darkModeController, Widget child){
+      return Consumer(builder: (BuildContext context,
+          DarkModeController darkModeController, Widget child) {
         return Material(
           child: Stack(
             children: [
@@ -51,22 +51,26 @@ class _FirstScreenState extends State<FirstScreen>
                 decoration: BoxDecoration(
                     color: Colors.black,
                     image: DecorationImage(
-                        fit: BoxFit.cover, image: darkModeController.isDarkMode ? darkBackground : background)),
+                        fit: BoxFit.cover,
+                        image: darkModeController.isDarkMode
+                            ? darkBackground
+                            : background)),
               ),
               Scaffold(
                 backgroundColor: Colors.transparent,
                 drawer: Theme(
                   data: Theme.of(context).copyWith(
-                    canvasColor: darkModeController.isDarkMode ? Colors.white.withOpacity(
-                        0.9) : Color(0xFF9B8C85).withOpacity(0.9), //This will change the drawer background to blue.
-                    //other styles
+                    canvasColor: darkModeController.isDarkMode
+                        ? Colors.white.withOpacity(0.9)
+                        : Color(0xFF9B8C85).withOpacity(
+                            0.9),
                   ),
                   child: Drawer(
                     child: ListView(
                       children: [
                         Container(
-                            padding:
-                            const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+                            padding: const EdgeInsets.fromLTRB(
+                                16.0, 16.0, 16.0, 8.0),
                             margin: const EdgeInsets.only(bottom: 8.0),
                             child: Text(
                               "Manage App Modes",
@@ -78,36 +82,35 @@ class _FirstScreenState extends State<FirstScreen>
                           child: Divider(height: 5, color: Colors.black),
                         ),
                         Consumer(builder: (BuildContext context,
-                            ModeController connectivityController, Widget child) {
+                            ModeController connectivityController,
+                            Widget child) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(connectivityController.isOnline
-                                        ? "Online Mode"
-                                        : "Offline Mode",
-                                        style: TextStyle(
-                                            fontSize: 22
-                                        )),
+                                    Text(
+                                        "Online Mode",
+                                        style: TextStyle(fontSize: 22)),
                                     Switch(
                                         activeColor: Colors.black,
-                                        inactiveThumbColor: Colors.black.withOpacity(0.4),
+                                        inactiveThumbColor:
+                                            Colors.black.withOpacity(0.4),
                                         value: connectivityController.isOnline,
                                         onChanged: (value) async {
-                                          var result = await connectivityController.changeMode(
-                                              connectivityBoolean: value);
-                                          if(result == 0){
-                                            setState(() {
-                                              cantSwitch = true;
-                                            });
+                                          var result =
+                                              await connectivityController
+                                                  .changeMode(
+                                                      connectivityBoolean:
+                                                          value);
+                                          if (result == 0) {
+                                            connectivityController.changeCantSwitch(true);
                                           }
-                                          if(result == 1){
-                                            setState(() {
-                                              cantSwitch = false;
-                                            });
+                                          if (result == 1) {
+                                            connectivityController.changeCantSwitch(false);
                                           }
                                           if (connectivityController.isOnline ==
                                               true) {
@@ -116,39 +119,46 @@ class _FirstScreenState extends State<FirstScreen>
                                         })
                                   ],
                                 ),
-                                cantSwitch ? Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("You need internet connection to switch",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: darkModeController.isDarkMode ? Colors.red : Colors.black,
-                                          fontWeight: FontWeight.bold
-                                      )),
-                                ) : Container(),
+                                connectivityController.cantSwitch
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                            "You need internet connection to switch",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: darkModeController
+                                                        .isDarkMode
+                                                    ? Colors.red
+                                                    : Colors.black,
+                                                fontWeight: FontWeight.bold)),
+                                      )
+                                    : Container(),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("(Offline Mode won't allow you to reload data or send reports. To do this, please switch to Online Mode)",
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                      "(Offline Mode won't allow you to reload data or send reports. To do this, please switch to Online Mode)",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 13
-                                      )),
+                                      style: TextStyle(fontSize: 13)),
                                 ),
                                 SizedBox(height: 10),
                                 Divider(height: 5, color: Colors.black),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Dark Mode",
-                                        style: TextStyle(
-                                            fontSize: 22
-                                        )),
+                                        style: TextStyle(fontSize: 22)),
                                     Switch(
                                         activeColor: Colors.black,
-                                        inactiveThumbColor: Colors.black.withOpacity(0.4),
+                                        inactiveThumbColor:
+                                            Colors.black.withOpacity(0.4),
                                         value: darkModeController.isDarkMode,
                                         onChanged: (value) {
-                                          darkModeController.changeDarkMode(value);
+                                          darkModeController
+                                              .changeDarkMode(value);
                                         })
                                   ],
                                 )
@@ -163,13 +173,16 @@ class _FirstScreenState extends State<FirstScreen>
                 appBar: AppBar(
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  iconTheme: IconThemeData(color: darkModeController.isDarkMode ? Colors.white : Colors.black),
+                  iconTheme: IconThemeData(
+                      color: darkModeController.isDarkMode
+                          ? Colors.white
+                          : Colors.black),
                 ),
                 body: Column(
                   children: [
                     Padding(
-                      padding:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 10),
                       child: FadeTransition(
                           opacity: animationController
                               .drive(CurveTween(curve: Curves.easeOut)),
@@ -195,43 +208,67 @@ class _FirstScreenState extends State<FirstScreen>
                     SizedBox(height: 10),
                     connectivityController.isOnline == false && _future == null
                         ? Expanded(
-                      child: Container(
-                        width: 300,
-                        child: Center(
-                          child: BorderedText(
-                            strokeWidth: 2.5,
-                            strokeColor: Color(0xFFFFE444),
-                            child: Text(
-                              "You need connection to get data. Switch to Online Mode".toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                                decoration: TextDecoration.none,
-                              )
-                              ,
+                            child: Container(
+                              width: 300,
+                              child: Center(
+                                child: BorderedText(
+                                  strokeWidth: 2.5,
+                                  strokeColor: Color(0xFFFFE444),
+                                  child: Text(
+                                    "You need connection to get data. Switch to Online Mode"
+                                        .toUpperCase(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Flexible(
+                            child: FutureBuilder(
+                              future: _future,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return snapshot.data == null
+                                      ? Expanded(
+                                          child: Container(
+                                            width: 300,
+                                            child: Center(
+                                              child: BorderedText(
+                                                strokeWidth: 2.5,
+                                                strokeColor: Color(0xFFFFE444),
+                                                child: Text(
+                                                  "No data".toUpperCase(),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 25,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : GridView.count(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          crossAxisCount: 2,
+                                          children:
+                                              _characterList(snapshot.data),
+                                        );
+                                } else {
+                                  return LoadingWidget();
+                                }
+                              },
                             ),
                           ),
-                        ),
-                      ),
-                    )
-                        : Flexible(
-                      child: FutureBuilder(
-                        future: _future,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return GridView.count(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              crossAxisCount: 2,
-                              children: _characterList(snapshot.data),
-                            );
-                          } else {
-                            return LoadingWidget();
-                          }
-                        },
-                      ),
-                    ),
                   ],
                 ),
               )

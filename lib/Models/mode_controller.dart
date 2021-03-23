@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class ModeController extends ChangeNotifier{
   bool isOnline = true;
+  bool cantSwitch = false;
 
   Future<int> changeMode({bool connectivityBoolean}) async{
     if(connectivityBoolean == true) {
@@ -19,5 +20,10 @@ class ModeController extends ChangeNotifier{
       notifyListeners();
       return 1;
     }
+  }
+
+  void changeCantSwitch(bool value){
+    cantSwitch = value;
+    notifyListeners();
   }
 }
