@@ -24,8 +24,9 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen>
     with TickerProviderStateMixin {
   Future<List<Character>> _future; //Use to avoid rebuilding FutureBuilder
-    ImageProvider logo = AssetImage("assets/Images/logo.png");
+  ImageProvider logo = AssetImage("assets/Images/logo.png");
   AnimationController animationController;
+  bool showLoading = false;
 
   @override
   void initState() {
@@ -93,8 +94,7 @@ class _FirstScreenState extends State<FirstScreen>
                                         value: connectivityController.isOnline,
                                         onChanged: (value) async {
                                           await connectivityController
-                                              .changeMode(
-                                                  value: value);
+                                              .changeMode(value: value);
                                           if (connectivityController.isOnline) {
                                             refreshList();
                                           }
@@ -186,31 +186,34 @@ class _FirstScreenState extends State<FirstScreen>
                           )),
                     ),
                     SizedBox(height: 10),
-                    connectivityController.isOnline == false && _future == null
-                        ? InfoMessageWidget(
-                            message: NEED_CONNECTION_TO_GET,
-                          )
-                        : Flexible(
-                            child: FutureBuilder(
-                              future: _future,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  return snapshot.data == null
-                                      ? InfoMessageWidget(message: NO_DATA)
-                                      : GridView.count(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          crossAxisCount: 2,
-                                          children:
-                                              _characterList(snapshot.data),
-                                        );
-                                } else {
-                                  return LoadingWidget();
-                                }
-                              },
-                            ),
-                          ),
+                    showLoading == false
+                        ? Container()
+                        : connectivityController.isOnline == false &&
+                                _future == null
+                            ? InfoMessageWidget(
+                                message: NEED_CONNECTION_TO_GET,
+                              )
+                            : Flexible(
+                                child: FutureBuilder(
+                                  future: _future,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      return snapshot.data == null
+                                          ? InfoMessageWidget(message: NO_DATA)
+                                          : GridView.count(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8),
+                                              crossAxisCount: 2,
+                                              children:
+                                                  _characterList(snapshot.data),
+                                            );
+                                    } else {
+                                      return LoadingWidget();
+                                    }
+                                  },
+                                ),
+                              ),
                   ],
                 ),
               )
@@ -238,7 +241,10 @@ class _FirstScreenState extends State<FirstScreen>
     } else {
       Provider.of<ConnectivityController>(context, listen: false)
           .changeMode(value: true);
-      refreshList();
+      Timer(Duration(milliseconds: 2500), () {
+        showLoading = true;
+        refreshList();
+      });
     }
   }
 
