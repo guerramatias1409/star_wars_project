@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:star_wars_project/Controllers/dark_mode_controller.dart';
 
 class BackgroundWidget extends StatelessWidget {
-  final ImageProvider background = AssetImage("Assets/fondo3.jpg");
-  final ImageProvider darkBackground = AssetImage("Assets/fondo4.jpg");
+  final ImageProvider background = AssetImage("assets/Images/fondo3.jpg");
+  final ImageProvider darkBackground = AssetImage("assets/Images/fondo4.jpg");
 
   @override
   Widget build(BuildContext context) {

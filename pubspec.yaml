@@ -25,12 +25,12 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path_android: "assets/darkLogo710x599.png"
-  image_path_ios: "assets/darkLogo710x599.png"
+  image_path_android: "assets/Images/darkLogo710x599.png"
+  image_path_ios: "assets/Images/darkLogo710x599.png"
   ios: true
   android: true
 
 flutter:
   assets:
-    - assets/
+    - assets/Images/
   uses-material-design: true
