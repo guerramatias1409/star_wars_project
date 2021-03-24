@@ -23,7 +23,7 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen>
     with SingleTickerProviderStateMixin<SecondScreen> {
   Character character;
-  int index = 0;
+  int index = 0; //Control variable. Used to getCharacter only in the first load
   bool sendingPost = false;
   bool postSent = false;
   bool postError = false;
